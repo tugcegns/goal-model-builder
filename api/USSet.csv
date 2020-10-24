@@ -1,0 +1,41 @@
+actors;mainVerbs;mainObjects;us_id
+user;click;the address;1
+user;view;public information;2
+user;enter;my zip code;3
+user;select;different types;4
+user;add;donation centers;5
+user;give;my email;6
+user;view;a map display;7
+user;view;the safe disposal events;8
+user;choose;a flexible pick;9
+user;view;user documentation;10
+user;enter;an invalid zip code;11
+user;create;an acocunt;12
+admin;add;recycling facilities' information;13
+admin;read;users' feedback;14
+user;check;transaction history;15
+user;access;the site;16
+admin;block;specific users;17
+admin;view;a dashboard;18
+executive;related;my company;19
+employee;access;the route planning system;20
+employee from the HR department;working;this business;21
+developer;access;an API;22
+user;kept;the database;23
+admin;handle;all users' activities;24
+company accountant;view;all available activity fees;25
+developer;attend;some UI/UX lessons;26
+user;view;all locations;27
+user;upload;my week's schedule;28
+user;link;my email account;29
+user;contact;the administrators;30
+admin;add;recycling center information;31
+admin;view;user error logs;32
+admin;onboard;recycling centers;33
+superuser;update;the recycling center information;34
+superuser;view;users' stats;35
+superuser;reply;user questions;36
+admin;shows;usage stats;37
+user;browse;the list;38
+recyclingfacility representative;update;my information;39
+recyclingfacility;communicate;the site admin;40

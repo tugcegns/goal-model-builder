@@ -1,0 +1,39 @@
+actors;mainVerbs;mainObjects;benefitVerbs;benefitObjects;us_id;action_id;benefit_id
+user;click;the address;takes;me;1;action_1;benefit_1
+user;view;public information;know;recycling centers;2;action_2;benefit_2
+user;enter;my zip code;determine;which ones;3;action_3;benefit_3
+user;select;different types;find;an optimal route;4;action_4;benefit_4
+user;add;donation centers;view;them;5;action_5;benefit_5
+user;give;my email;receive;notifications;6;action_6;benefit_6
+user;view;a map display;None;None;7;action_7;benefit_7
+user;view;the safe disposal events;None;None;8;action_8;benefit_8
+user;choose;a flexible pick;use;the website;9;action_9;benefit_9
+user;view;user documentation;know;the web app;10;action_10;benefit_10
+user;enter;an invalid zip code;None;None;11;action_11;benefit_11
+user;create;an acocunt;create;my own profile;12;action_12;benefit_12
+admin;add;recycling facilities' information;get;the most recent information;13;action_13;benefit_13
+admin;read;users' feedback;add;more features;14;action_14;benefit_14
+user;check;transaction history;go;None;15;action_15;benefit_15
+user;access;the site;None;None;16;action_16;benefit_16
+admin;block;specific users;prevent;the websites;17;action_17;benefit_17
+admin;view;a dashboard;doing;what;18;action_18;benefit_18
+employee;access;the route planning system;guided;the neighbourhood;19;action_19;benefit_19
+employee from the HR department;working;this business;None;None;20;action_20;benefit_20
+developer;access;an API;integrate;it;21;action_21;benefit_21
+user;kept;the database;suffer;identity theft;22;action_22;benefit_22
+admin;handle;all users' activities;manage;None;23;action_23;benefit_23
+company accountant;view;all available activity fees;create;a bill statement;24;action_24;benefit_24
+developer;attend;some UI/UX lessons;develop;an awesome and beautiful features website;25;action_25;benefit_25
+user;view;all locations;check;waste;26;action_26;benefit_26
+user;upload;my week's schedule;recycling;recommendations;27;action_27;benefit_27
+user;contact;the administrators;give;feedback;28;action_28;benefit_28
+admin;add;recycling center information;keep;the database;29;action_29;benefit_29
+admin;view;user error logs;fix;any issues;30;action_30;benefit_30
+admin;onboard;recycling centers;increase;information accuracy;31;action_31;benefit_31
+superuser;update;the recycling center information;provide;the latest information;32;action_32;benefit_32
+superuser;view;users' stats;view;real-time;33;action_33;benefit_33
+superuser;reply;user questions;answer;any questions;34;action_34;benefit_34
+admin;shows;usage stats;identify;the neighbourhoods;35;action_35;benefit_35
+user;browse;the list;know;a negative ecological footprint;36;action_36;benefit_36
+recyclingfacility representative;update;my information;avoid;any miscommunication;37;action_37;benefit_37
+recyclingfacility;communicate;the site admin;fix;them;38;action_38;benefit_38
