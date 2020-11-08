@@ -162,7 +162,7 @@ class ReactFileUpload extends React.Component {
             type="submit"
             name="submitButton"
 onClick={this.onFormSubmit}
-          >Save Changes          
+          >Create JSON          
       </button>
       {this.state.isReady && (
       <Link class="link-large"

@@ -221,6 +221,41 @@ class Playground extends React.Component{
                 selector: 'label'
             }]
         });
+        this.CustomLink = dia.Element.define('AndRefinement', {
+            attrs: {
+                line: {
+                    connection: true,
+                    fill: 'none',
+                    stroke: 'black',
+                    'stroke-width': 1,
+                    'targetMarker': {
+                        'd': 'm 10,-6 l 0,12',
+                        fill: 'none',
+                        'stroke-width': 1.2,
+                        'type': 'path',
+                    }
+                },
+                'connection-wrap': {
+                    connection: true,
+                    fill: 'none',
+                    stroke: 'transparent',
+                    'stroke-linecap': 'round',
+                    'stroke-width': 20
+                }
+            }
+        }, {
+            markup: [
+            {
+                className: 'c-connection-wrap',
+                selector: 'connection-wrap',
+                tagName: 'path'
+            },
+            {
+                selector: 'line',
+                tagName: 'path'
+            }
+        ]
+        });
         shapes.node = {};
         shapes.node.role = this.CustomElement;
 
@@ -343,9 +378,10 @@ class Playground extends React.Component{
         return rect;
     }
     createLink = (sourceID, targetID, label, x, y)=> {
-        
+        debugger
         var link = new shapes.standard.Link();
-        
+        //var link = new this.CustomLink();
+
         link.prop('source', { id: sourceID });
         link.prop('target', {id: targetID });
         link.prop('vertices', [{x: x+100,y: y+100}])
@@ -358,6 +394,7 @@ class Playground extends React.Component{
                 }
             }
         }]);
+        //link.addTo(this.graph);
         return link;
     }
     countChildren = nodes => {
@@ -455,6 +492,7 @@ class Playground extends React.Component{
                             y: parentGoalCoordinates.y - subgoalCoordinates[i].y
                         }
                         var subgoal = this.createGoal(children.label[i], childGoalCoordinates.x, childGoalCoordinates.y);
+                        debugger
                         var link = this.createLink(
                             goal.id, 
                             subgoal.id, 
