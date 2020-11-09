@@ -4,13 +4,12 @@ import h1_new from "./images/h1_new.png";
 import h2_new from "./images/h2_new.png";
 import h3_new from "./images/h3_new.png";
 import h4_new from "./images/h4_new.png";
-import axios, { post } from "axios";
-import Banner from "react-js-banner";
 import { Link } from 'react-router-dom';
 import NavigationBar from "./components/NavigationBar";
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { Row, Col, Container, Button } from "react-bootstrap";
+import axios, { post } from "axios";
 
-class ReactFileUpload extends React.Component {
+class ReactUSUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,15 +71,23 @@ class ReactFileUpload extends React.Component {
       <div>
         <NavigationBar page="home"/>
         <form align="center">
+        <Container className="mt-5">
+        <Row>
+            <Col md="12">
+                <h2 className="text-center">Upload your user story set .txt format.</h2>
+                <hr/>
+                <p>
+                Expected format:{" "}
+                    <q>
+                        As a <strong>role</strong>, I want <strong>action</strong> so that{" "}
+                        <strong>benefit</strong>.
+                    </q> 
+                </p>
+            </Col>
+        </Row>
+
+        </Container>
         
-        <p align="center">Upload your user story set .txt format.</p>
-        <p align="center">
-          Expected format:{" "}
-          <q>
-            As a <strong>role</strong>, I want <strong>action</strong> so that{" "}
-            <strong>benefit</strong>.
-          </q>
-        </p>
         <p align="center">
           <label>
             <b>File Upload: </b>
@@ -91,21 +98,12 @@ class ReactFileUpload extends React.Component {
           Select a model type to generate your customized goal model.
         </p>
         <p align="center">Select a heuristic type.</p>
-        <div className="grid-container">
-          <div>
-            <img src={h1_new} alt="Role-Action" width="240" height="210" />
-          </div>
-          <div>
-            <img src={h2_new} alt="Role-Topic" width="220" height="200" />
-          </div>
-          <div>
-            <img src={h3_new} alt="Role" width="260" height="200" />
-          </div>
-          <div>
-            <img src={h4_new} alt="Role-Benefit" width="220" height="200" />
-          </div>
-          <div>
-            <input
+        <Container className="mt-5">
+          <Row>
+              <Col md="6">
+                <img src={h1_new} alt="Role-Action" width="240" height="210" />
+                <p>
+                <input
               type="radio"
               name="heu"
               value="h1"
@@ -113,9 +111,12 @@ class ReactFileUpload extends React.Component {
               onChange={this.handleChange}
             />
             <label className="label-style"> Grouped Action Verbs</label>
-          </div>
-          <div>
-            <input
+            </p>
+              </Col>
+              <Col md="6">
+                <img src={h2_new} alt="Role-Topic" width="220" height="200" />
+                <p>
+                <input
               type="radio"
               name="heu"
               value="h2"
@@ -123,9 +124,14 @@ class ReactFileUpload extends React.Component {
               onChange={this.handleChange}
             />
             <label className="label-style"> Grouped Action Object</label>
-          </div>
-          <div>
-            <input
+            </p>
+              </Col>
+            </Row> 
+            <Row> 
+              <Col md="6">
+               <img src={h3_new} alt="Role" width="260" height="200" />
+               <p>
+               <input
               type="radio"
               name="heu"
               value="h3"
@@ -133,9 +139,12 @@ class ReactFileUpload extends React.Component {
               onChange={this.handleChange}
             />
             <label className="label-style"> Without Role Boundary</label>
-          </div>
-          <div>
-            <input
+            </p>
+              </Col>
+              <Col md="6">
+                <img src={h4_new} alt="Role-Benefit" width="220" height="200" />
+                <p>
+                <input
               type="radio"
               name="heu"
               value="h4"
@@ -143,17 +152,14 @@ class ReactFileUpload extends React.Component {
               onChange={this.handleChange}
             />
             <label className="label-style"> Grouped Benefit</label>
-          </div>
-        </div>
-        </form>
+            </p>
+              </Col>            
+          </Row>
+          </Container>
+          </form>
         <div align="center">
-          <button
-            class="button-large pure-button"
-            type="submit"
-            name="submitButton"
-onClick={this.onFormSubmit}
-          >Create JSON          
-      </button>
+        <Button as="input" type="submit" onClick={this.onFormSubmit} value="Create JSON" />{' '}
+
       {this.state.isReady && (
       <Link class="link-large"
              to={{ 
@@ -168,4 +174,4 @@ onClick={this.onFormSubmit}
   }
 }
 
-export default ReactFileUpload;
+export default ReactUSUpload;

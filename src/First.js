@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 //import Page from "./deneme";
-import ReactFileUpload from "./uploadFileYeni";
+import ReactUSUpload from "./uploadUS";
 
 function App(){
   return(
       <div>
-          <ReactFileUpload/>
+          <ReactUSUpload/>
       </div>
       );
 }
