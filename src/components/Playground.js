@@ -221,13 +221,13 @@ class Playground extends React.Component{
                 selector: 'label'
             }]
         });
-        this.CustomLink = dia.Element.define('AndRefinement', {
+        this.CustomLinkAnd = dia.Link.define('AndRefinementLink', {
             attrs: {
                 line: {
                     connection: true,
                     fill: 'none',
                     stroke: 'black',
-                    'stroke-width': 1,
+                    'stroke-width': 2,
                     'targetMarker': {
                         'd': 'm 10,-6 l 0,12',
                         fill: 'none',
@@ -256,6 +256,43 @@ class Playground extends React.Component{
             }
         ]
         });
+
+        this.CustomLinkOr = dia.Link.define('OrRefinementLink', {
+            attrs: {
+                line: {
+                    connection: true,
+                    fill: 'none',
+                    stroke: 'black',
+                    'stroke-width': 1,
+                    'targetMarker': {
+                        'd': 'm 12,-6 l -12,6 12,6 z',
+                        fill: 'black',
+                        'stroke-width': 1.2,
+                        'type': 'path',
+                    }
+                },
+                'connection-wrap': {
+                    connection: true,
+                    fill: 'none',
+                    stroke: 'transparent',
+                    'stroke-linecap': 'round',
+                    'stroke-width': 20
+                }
+            }
+        }, {
+            markup: [
+            {
+                className: 'c-connection-wrap',
+                selector: 'connection-wrap',
+                tagName: 'path'
+            },
+            {
+                selector: 'line',
+                tagName: 'path'
+            }
+        ]
+        });
+
         shapes.node = {};
         shapes.node.role = this.CustomElement;
 
@@ -379,22 +416,21 @@ class Playground extends React.Component{
     }
     createLink = (sourceID, targetID, label, x, y)=> {
         debugger
-        var link = new shapes.standard.Link();
-        //var link = new this.CustomLink();
+        //var link = new shapes.standard.Link();
+        var link = new this.CustomLinkAnd();
 
-        link.prop('source', { id: sourceID });
-        link.prop('target', {id: targetID });
+        link.prop('source', { id: targetID });
+        link.prop('target', {id: sourceID });
         link.prop('vertices', [{x: x+100,y: y+100}])
         link.attr('root/title', 'joint.shapes.standard.Link');
         link.attr('line/stroke', '#31a2e7');
-        link.labels([{
-            attrs: {
-                text: {
-                    text: label.toUpperCase()
-                }
-            }
-        }]);
-        //link.addTo(this.graph);
+        //link.labels([{
+        //    attrs: {
+        //        text: {
+        //            text: label.toUpperCase()
+        //        }
+        //    }
+        //}]);
         return link;
     }
     countChildren = nodes => {
