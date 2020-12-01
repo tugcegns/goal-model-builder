@@ -55,18 +55,7 @@ class ReactFileUpload extends React.Component {
     return post(url, formData, config);
   }
     
-    /*
-    
-    passData() {
-        <button
-            class="button-large pure-button"
-            type="submit"
-            name="submitButton"
-            onPress={this.passData}
-          >
-        <Route path="/playground" component={() => <Search name={this.state.rslt} />} /> 
-    }*/
- 
+
   render() {
     return (
       <div>

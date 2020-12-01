@@ -69,11 +69,11 @@
 
 .link-large {
   font-size: 100%;
-  background-color: #0099cc; /* Blue background color */
-  border-radius: 30px; /* Curve of border corners */
+  background-color: #007bff; /* Blue background color */
+  border: 1px solid transparent;
+  border-radius: .25rem;
   text-transform: uppercase; /* Make letters uppercase */
   color: white; /* Text color */
-  margin-top: 20px;
   padding: 3px;
   float: right;
 }
