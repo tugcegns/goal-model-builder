@@ -10,6 +10,8 @@ from py2neo import Graph, Node, Relationship
 import json
 import pandas as pd
 from collections import defaultdict 
+import logging
+import re
 
 
 # %%
@@ -118,14 +120,34 @@ class QueryGraph:
             deflistobj.append(d)
         return deflistobj
 
+    def create_new_dict_heu3(role_action_map):
+        res=[]
+        new_dict = {}
+        for k,v in role_action_map.items():
+            for each in v:
+                res.append(each + ' by ' + k)    
+        new_dict["null"] = res  
+        return new_dict
 
-    #TODO : heuristic 3 yazılacak.
+    def create_heuristic3(role_action_map):
+        new_dict = QueryGraph.create_new_dict_heu3(role_action_map)
+        deflist_h3 = []
+        for each in list(new_dict.values()):
+            d = defaultdict(list)
+            for item in each:
+                d[re.search('s*([^,\.]*?)\s*(,|\.|by)', item).group(1).split(' ', 1)[1]].append(item)
+            deflist_h3.append(d)
+        return deflist_h3
+
     
-    
-    def result(roles,deflist):
-        mapped_val = dict(zip(roles,deflist))
+    def result(roles,deflist,heuristic_number):
+        if heuristic_number == 'h3':
+            no_actor = ["null"]
+            mapped_val = dict(zip(no_actor, deflist))
+        else:    
+            mapped_val = dict(zip(roles,deflist))
         return json.loads(str(json.dumps(mapped_val)))
-    
+
     
     def json_formatter(rslt):
         json_dict = {}
@@ -149,9 +171,9 @@ class QueryGraph:
             rslt = QueryGraph.create_heuristic1(role_action_map)
         elif heuristic_number == 'h2':
             rslt = QueryGraph.create_heuristic2(role_action_map)
-        #else:
-        #    rslt = QueryGraph.create_heuristic3(role_action_map)
+        else:
+            rslt = QueryGraph.create_heuristic3(role_action_map)
         
-        solution = QueryGraph.result(roles,rslt)
+        solution = QueryGraph.result(roles,rslt, heuristic_number)
         return json.dumps(QueryGraph.json_formatter(solution))
 
