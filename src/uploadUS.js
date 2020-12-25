@@ -1,9 +1,5 @@
 /* eslint-disable */
 import React, { Component } from "react";
-import h1_new from "./images/h1_new.png";
-import h2_new from "./images/h2_new.png";
-import h3_new from "./images/h3_new.png";
-import h4_new from "./images/h4_new.png";
 import { Link } from 'react-router-dom';
 import NavigationBar from "./components/NavigationBar";
 import { Row, Col, Container, Button } from "react-bootstrap";
@@ -67,6 +63,12 @@ class ReactUSUpload extends React.Component {
     }*/
  
   render() {
+    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => <HeuristicChoice 
+      key = {item.alt}
+      {...item}
+      selectedValue={this.state.value}
+      handleChange={this.handleChange}
+    />)
     return (
       <div>
         <NavigationBar page="home"/>
@@ -100,78 +102,95 @@ class ReactUSUpload extends React.Component {
         <p align="center">Select a heuristic type.</p>
         <Container className="mt-5">
           <Row>
-              <Col md="6">
-                <img src={h1_new} alt="Role-Action" width="240" height="210" />
-                <p>
-                <input
-              type="radio"
-              name="heu"
-              value="h1"
-              checked={this.state.value === "h1"}
-              onChange={this.handleChange}
-            />
-            <label className="label-style"> Grouped Action Verbs</label>
-            </p>
-              </Col>
-              <Col md="6">
-                <img src={h2_new} alt="Role-Topic" width="220" height="200" />
-                <p>
-                <input
-              type="radio"
-              name="heu"
-              value="h2"
-              checked={this.state.value === "h2"}
-              onChange={this.handleChange}
-            />
-            <label className="label-style"> Grouped Action Object</label>
-            </p>
-              </Col>
-            </Row> 
-            <Row> 
-              <Col md="6">
-               <img src={h3_new} alt="Role" width="260" height="200" />
-               <p>
-               <input
-              type="radio"
-              name="heu"
-              value="h3"
-              checked={this.state.value === "h3"}
-              onChange={this.handleChange}
-            />
-            <label className="label-style"> Without Role Boundary</label>
-            </p>
-              </Col>
-              <Col md="6">
-                <img src={h4_new} alt="Role-Benefit" width="220" height="200" />
-                <p>
-                <input
-              type="radio"
-              name="heu"
-              value="h4"
-              checked={this.state.value === "h4"}
-              onChange={this.handleChange}
-            />
-            <label className="label-style"> Grouped Benefit</label>
-            </p>
-              </Col>            
+            <Col md="6">
+              {HeuristicChoiceComponents[0]}
+            </Col>
+            <Col md="6">
+              {HeuristicChoiceComponents[1]}
+            </Col>
+          </Row> 
+          <Row> 
+            <Col md="6">
+              {HeuristicChoiceComponents[2]}
+            </Col>
+            <Col md="6">
+              {HeuristicChoiceComponents[3]}
+            </Col>            
           </Row>
           </Container>
           </form>
         <div align="center">
         <Button as="input" type="submit" onClick={this.onFormSubmit} value="Create JSON" />{' '}
 
-      {this.state.isReady && (
-      <Link class="link-large"
-             to={{ 
- pathname: "/playground", 
- goalModel: this.state.uploadedObject
-}}>
- Upload
-</Link>)}
+        {this.state.isReady && (
+          <Link class="link-large"
+            to={{
+              pathname: "/playground", 
+              goalModel: this.state.uploadedObject
+            }}>
+            Upload
+          </Link>)}
         </div>
       </div>
     );
   }
 }
+
+function HeuristicChoice(props) {
+  console.log({...props.imageShape})
+  return (
+  <div>
+    {/*<img src={props.src} alt={props.alt} width={props.imageShape.width} height={props.imageShape.heigth} />*/}
+    <img src={props.src} alt={props.alt} {...props.imageShape} />
+    <p>
+      <input
+        type="radio"
+        name="heu"
+        value={props.value}
+        checked={props.selectedValue === props.value}
+        onChange={props.handleChange}
+      />
+      <label className="label-style">{props.text}</label>
+    </p>
+  </div>
+  )
+}
+
+
+import h1_new from "./images/h1_new.png";
+import h2_new from "./images/h2_new.png";
+import h3_new from "./images/h3_new.png";
+import h4_new from "./images/h4_new.png";
+
+const HeuristicChoiceData = [
+  {
+    alt: "Role-Action",
+    value: "h1",
+    text: "Grouped Action Verbs",
+    src: h1_new,
+    imageShape: {width: 240, height:210}
+  },
+  {
+    alt: "Role-Topic",
+    value: "h2",
+    text: "Grouped Action Object",
+    src: h2_new,
+    imageShape: {width: 220, height:200}    
+  },
+  {
+    alt: "Role",
+    value:"h3",
+    text: "Without Role Boundary",
+    src: h3_new,
+    imageShape: {width: 260, height:200}
+  },
+  {
+    alt: "Role-Benefit",
+    value: "h4",
+    text: "Grouped Benefit",
+    src: h4_new,
+    imageShape: {width: 220, height:200}
+  }
+]
 
 export default ReactUSUpload;
