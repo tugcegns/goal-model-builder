@@ -177,6 +177,7 @@ function HeuristicChoice(props) {
           name="heu"
           value={props.value}
           checked={props.selectedValue === props.value}
+          readOnly={true}
         />
         <label
           className="label-style"
