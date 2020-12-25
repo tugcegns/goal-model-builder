@@ -10,15 +10,15 @@ class ReactUSUpload extends React.Component {
     super(props);
     this.state = {
       file: null,
-      value: "",
+      value: "h1",
       uploadedObject: {},
       isReady: false,
       banner1Css: { color: "#FFF", backgroundColor: "green" },
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
+    this.setValue = this.setValue.bind(this)
   }
   onFormSubmit(e) {
     e.preventDefault(); // Stop form submit
@@ -33,8 +33,8 @@ class ReactUSUpload extends React.Component {
     this.setState({ file: e.target.files[0] });
   }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value });
+  setValue(newValue) {
+    this.setState({value: newValue});
   }
 
   fileUpload(file, e) {
@@ -67,7 +67,7 @@ class ReactUSUpload extends React.Component {
       key = {item.alt}
       {...item}
       selectedValue={this.state.value}
-      handleChange={this.handleChange}
+      setValue={this.setValue}
     />)
     return (
       <div>
@@ -137,25 +137,27 @@ class ReactUSUpload extends React.Component {
 }
 
 function HeuristicChoice(props) {
-  console.log({...props.imageShape})
   return (
-  <div>
-    {/*<img src={props.src} alt={props.alt} width={props.imageShape.width} height={props.imageShape.heigth} />*/}
-    <img src={props.src} alt={props.alt} {...props.imageShape} />
-    <p>
-      <input
-        type="radio"
-        name="heu"
-        value={props.value}
-        checked={props.selectedValue === props.value}
-        onChange={props.handleChange}
-      />
-      <label className="label-style">{props.text}</label>
-    </p>
-  </div>
+    <div>
+      <img src={props.src} alt={props.alt} {...props.imageShape} />
+      <p>
+        <input
+          type="radio"
+          name="heu"
+          value={props.value}
+          checked={props.selectedValue === props.value}
+          onChange={(e) => {props.setValue(props.value)}}
+        />
+        <label
+          className="label-style"
+          onClick={() => props.setValue(props.value)}
+          style={{cursor: 'pointer'}}>
+            {props.text}
+        </label>
+      </p>
+    </div>
   )
 }
-
 
 import h1_new from "./images/h1_new.png";
 import h2_new from "./images/h2_new.png";
