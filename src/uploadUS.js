@@ -139,6 +139,7 @@ class ReactUSUpload extends React.Component {
       </div>
       <Modal
         show={this.state.showWarning}
+        onHide={() => {this.setState({showWarning: false})}}
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
