@@ -146,12 +146,14 @@ function HeuristicChoice(props) {
           name="heu"
           value={props.value}
           checked={props.selectedValue === props.value}
-          onChange={(e) => {props.setValue(props.value)}}
+          onChange={(e) => props.setValue(props.value)}
+          style={{cursor: 'pointer'}}
         />
         <label
           className="label-style"
           onClick={() => props.setValue(props.value)}
-          style={{cursor: 'pointer'}}>
+          style={{cursor: 'pointer'}}
+        >
             {props.text}
         </label>
       </p>
