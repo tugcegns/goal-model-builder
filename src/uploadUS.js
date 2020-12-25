@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import NavigationBar from "./components/NavigationBar";
-import { Row, Col, Container, Button } from "react-bootstrap";
+import { Row, Col, Container, Button, Modal } from "react-bootstrap";
 import axios, { post } from "axios";
 
 class ReactUSUpload extends React.Component {
@@ -10,9 +10,10 @@ class ReactUSUpload extends React.Component {
     super(props);
     this.state = {
       file: null,
-      value: "h1",
+      value: "",
       uploadedObject: {},
       isReady: false,
+      showWarning: false,
       banner1Css: { color: "#FFF", backgroundColor: "green" },
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -22,6 +23,11 @@ class ReactUSUpload extends React.Component {
   }
   onFormSubmit(e) {
     e.preventDefault(); // Stop form submit
+    if (this.state.value=="" || this.state.file==null) {
+      this.setState({showWarning: true})
+      return
+    }
+    this.setState({attemptedToSubmit: true})
     this.fileUpload(this.state.file).then((response) => {
         if (response) {
               this.setState({ uploadedObject: response.data , isReady: true });
@@ -74,7 +80,7 @@ class ReactUSUpload extends React.Component {
         <NavigationBar page="home"/>
         <form align="center">
         <Container className="mt-5">
-        <Row>
+          <Row>
             <Col md="12">
                 <h2 className="text-center">Upload your user story set .txt format.</h2>
                 <hr/>
@@ -86,8 +92,7 @@ class ReactUSUpload extends React.Component {
                     </q> 
                 </p>
             </Col>
-        </Row>
-
+          </Row>
         </Container>
         
         <p align="center">
@@ -96,10 +101,12 @@ class ReactUSUpload extends React.Component {
           </label>
           <input type="file" name="file" onChange={this.onChange} />
         </p>
+
         <p align="center">
           Select a model type to generate your customized goal model.
         </p>
-        <p align="center">Select a heuristic type.</p>
+
+        <p align="center">Select a heuristic type.{this.state.showWarning?"showing":"not showing"}</p>
         <Container className="mt-5">
           <Row>
             <Col md="6">
@@ -117,28 +124,52 @@ class ReactUSUpload extends React.Component {
               {HeuristicChoiceComponents[3]}
             </Col>            
           </Row>
-          </Container>
-          </form>
-        <div align="center">
+        </Container>
+      </form>
+      <div align="center">
         <Button as="input" type="submit" onClick={this.onFormSubmit} value="Create JSON" />{' '}
-
         {this.state.isReady && (
           <Link class="link-large"
             to={{
-              pathname: "/playground", 
-              goalModel: this.state.uploadedObject
+                pathname: "/playground", 
+                goalModel: this.state.uploadedObject
             }}>
             Upload
           </Link>)}
-        </div>
       </div>
-    );
-  }
+      <Modal
+        show={this.state.showWarning}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Unselected Options
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {this.state.value==""?
+          "You must choose a heuristic to proceed":
+          "You must upload a file to proceed"}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={() => {
+            this.setState({showWarning: false})
+          }}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+}
 }
 
 function HeuristicChoice(props) {
   return (
-    <div>
+    <div
+      onClick={() => props.setValue(props.value)}
+      style={{cursor: 'pointer'}}
+    >
       <img src={props.src} alt={props.alt} {...props.imageShape} />
       <p>
         <input
@@ -146,12 +177,9 @@ function HeuristicChoice(props) {
           name="heu"
           value={props.value}
           checked={props.selectedValue === props.value}
-          onChange={(e) => props.setValue(props.value)}
-          style={{cursor: 'pointer'}}
         />
         <label
           className="label-style"
-          onClick={() => props.setValue(props.value)}
           style={{cursor: 'pointer'}}
         >
             {props.text}
