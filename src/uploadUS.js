@@ -131,7 +131,7 @@ class ReactUSUpload extends React.Component {
       </form>
       <div align="center">
         <CreateModelButton
-          pathname="/"
+          pathname="/playground"
           goalModel={this.state.uploadedObject}
           attemptFormSubmit={this.attemptFormSubmit}
         />{' '}
