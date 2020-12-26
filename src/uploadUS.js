@@ -1,6 +1,6 @@
 /* eslint-disable */
-import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import React, { Component, useCallback } from "react";
+import { useHistory } from 'react-router-dom';
 import NavigationBar from "./components/NavigationBar";
 import { Row, Col, Container, Button, Modal } from "react-bootstrap";
 import axios, { post } from "axios";
@@ -14,26 +14,28 @@ class ReactUSUpload extends React.Component {
       uploadedObject: {},
       isReady: false,
       showWarning: false,
+      linkRendered: false,
       banner1Css: { color: "#FFF", backgroundColor: "green" },
     };
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.attemptFormSubmit = this.attemptFormSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
     this.setValue = this.setValue.bind(this)
   }
-  onFormSubmit(e) {
-    e.preventDefault(); // Stop form submit
+  attemptFormSubmit(e) {
     if (this.state.value=="" || this.state.file==null) {
       this.setState({showWarning: true})
-      return
+      return false
     }
-    this.setState({attemptedToSubmit: true})
+
     this.fileUpload(this.state.file).then((response) => {
         if (response) {
-              this.setState({ uploadedObject: response.data , isReady: true });
+          this.setState({ uploadedObject: response.data , isReady: true })
+          return true
         }
       //console.log(response.data);
     });
+    return false
   }
   onChange(e) {
     this.setState({ file: e.target.files[0] });
@@ -75,6 +77,7 @@ class ReactUSUpload extends React.Component {
       selectedValue={this.state.value}
       setValue={this.setValue}
     />)
+
     return (
       <div>
         <NavigationBar page="home"/>
@@ -106,7 +109,7 @@ class ReactUSUpload extends React.Component {
           Select a model type to generate your customized goal model.
         </p>
 
-        <p align="center">Select a heuristic type.{this.state.showWarning?"showing":"not showing"}</p>
+        <p align="center">Select a heuristic type.</p>
         <Container className="mt-5">
           <Row>
             <Col md="6">
@@ -127,15 +130,11 @@ class ReactUSUpload extends React.Component {
         </Container>
       </form>
       <div align="center">
-        <Button as="input" type="submit" onClick={this.onFormSubmit} value="Create JSON" />{' '}
-        {this.state.isReady && (
-          <Link class="link-large"
-            to={{
-                pathname: "/playground", 
-                goalModel: this.state.uploadedObject
-            }}>
-            Upload
-          </Link>)}
+        <CreateModelButton
+          pathname="/"
+          goalModel={this.state.uploadedObject}
+          attemptFormSubmit={this.attemptFormSubmit}
+        />{' '}
       </div>
       <Modal
         show={this.state.showWarning}
@@ -163,6 +162,21 @@ class ReactUSUpload extends React.Component {
     </div>
   );
 }
+}
+
+function CreateModelButton(props) {
+  const history = useHistory()
+  const handleClick = useCallback(() => 
+    {
+      if (props.attemptFormSubmit()) {
+        history.push({pathname: props.pathname, goalModel: props.goalModel})
+      }
+    }
+  )
+
+  return (
+    <Button as="input" type="submit" onClick={handleClick} value="Create Model" readOnly={true}/>
+  )
 }
 
 function HeuristicChoice(props) {
