@@ -12,9 +12,8 @@ class ReactUSUpload extends React.Component {
       file: null,
       value: "",
       uploadedObject: {},
-      isReady: false,
       showWarning: false,
-      linkRendered: false,
+      warningText: "Placeholder Text",
       banner1Css: { color: "#FFF", backgroundColor: "green" },
     };
     this.attemptFormSubmit = this.attemptFormSubmit.bind(this);
@@ -22,21 +21,28 @@ class ReactUSUpload extends React.Component {
     this.fileUpload = this.fileUpload.bind(this);
     this.setValue = this.setValue.bind(this)
   }
+
   attemptFormSubmit(e) {
-    if (this.state.value=="" || this.state.file==null) {
-      this.setState({showWarning: true})
+    if (this.state.value=="") {
+      this.setState({showWarning: true, warningText:"You must select a heuristic to proceed"})
+      return false
+    } else if (this.state.file==null) {
+      this.setState({showWarning: true, warningText:"You must choose a file to proceed"})
       return false
     }
 
     this.fileUpload(this.state.file).then((response) => {
         if (response) {
-          this.setState({ uploadedObject: response.data , isReady: true })
+          this.setState({ uploadedObject: response.data })
           return true
         }
       //console.log(response.data);
     });
+    
+    this.setState({showWarning: true, warningText:"Model creation failed."})
     return false
   }
+
   onChange(e) {
     this.setState({ file: e.target.files[0] });
   }
@@ -145,13 +151,11 @@ class ReactUSUpload extends React.Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Unselected Options
+            Unable to Create Model
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {this.state.value==""?
-          "You must choose a heuristic to proceed":
-          "You must upload a file to proceed"}
+          {this.state.warningText}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={() => {
