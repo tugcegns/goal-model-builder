@@ -27,6 +27,7 @@ class SideBar extends React.Component{
             )
         })
 
+        const { getGraphScale, setGraphScale} = this.props
         return(
             <div style={{
                 width: '100%',
@@ -42,6 +43,11 @@ class SideBar extends React.Component{
                 {SideBarBoxDivs}
                 <div>
                     <ImportDataModal setUploadedObject={this.props.setUploadedObject} /> 
+                </div>
+                <div className="text-center mt-4">
+                    Zoom
+                    <Button variant="info" onClick={() => setGraphScale(getGraphScale() + 0.1)}>  In </Button>
+                    <Button variant="info" onClick={() => setGraphScale(getGraphScale() - 0.1)}>  Out </Button>
                 </div>
             </div>
         );

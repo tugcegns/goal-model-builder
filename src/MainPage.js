@@ -13,7 +13,8 @@ class MainPage extends React.Component{
         this.state = {
             uploadedObject: {},
             jsonExportClicked: false,
-            selectedTool: null
+            selectedTool: null,
+            graphScale: 1
         }
     }
     
@@ -32,6 +33,14 @@ class MainPage extends React.Component{
 
     setUploadedObject = uploadedObject => {
         this.setState({ uploadedObject });
+    }
+
+    setGraphScale = (newScale) => {
+        this.setState({ graphScale: newScale });
+    }
+
+    getGraphScale = () => {
+        return this.state.graphScale
     }
 
     handleJSONExport = flag => {
@@ -63,7 +72,9 @@ class MainPage extends React.Component{
                     <Col md="2" style={{ overflow: 'auto' }}>
                         <SideBar setUploadedObject={this.setUploadedObject}
                                  handleToolClick={this.handleToolClick}
-                                 selectedTool={selectedTool} />
+                                 selectedTool={selectedTool}
+                                 setGraphScale={this.setGraphScale}
+                                 getGraphScale={this.getGraphScale} />
                     </Col>
                     <Col md="10" className="pt-3" style={{overflow:'auto'}} >
                         <Playground uploadedObject={uploadedObject} 
@@ -72,7 +83,8 @@ class MainPage extends React.Component{
                                     exportJSON={this.exportJSON}
                                     selectedTool={selectedTool}
                                     handleToolClick={this.handleToolClick}
-                                    handleJSONExport={this.handleJSONExport}/>
+                                    handleJSONExport={this.handleJSONExport}
+                                    getGraphScale={this.getGraphScale}/>
                     </Col>
                 </Row>
                 
