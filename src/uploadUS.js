@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component, useCallback } from "react";
 import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'; 
 import NavigationBar from "./components/NavigationBar";
 import { Row, Col, Container, Button, Modal } from "react-bootstrap";
 import axios, { post } from "axios";
@@ -33,14 +34,13 @@ class ReactUSUpload extends React.Component {
 
     this.fileUpload(this.state.file).then((response) => {
         if (response) {
-          this.setState({ uploadedObject: response.data })
+          this.props.history.push({pathname: "/playground", goalModel: response.data})
           return true
         }
-      //console.log(response.data);
     });
     
-    this.setState({showWarning: true, warningText:"Model creation failed."})
-    return false
+    //this.setState({showWarning: true, warningText:"Model creation failed."})
+    //return false
   }
 
   onChange(e) {
@@ -172,9 +172,8 @@ function CreateModelButton(props) {
   const history = useHistory()
   const handleClick = useCallback(() => 
     {
-      if (props.attemptFormSubmit()) {
-        history.push({pathname: props.pathname, goalModel: props.goalModel})
-      }
+      props.attemptFormSubmit()
+      
     }
   )
 
@@ -245,4 +244,4 @@ const HeuristicChoiceData = [
   }
 ]
 
-export default ReactUSUpload;
+export default withRouter(ReactUSUpload);
