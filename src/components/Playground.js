@@ -569,7 +569,8 @@ class Playground extends React.Component{
             this.resetSelectedCell();
         }
         const graphScale = this.props.getGraphScale()
-        this.paper.scale(graphScale, graphScale);
+        this.paper.scale(graphScale, graphScale)
+        this.paper.setDimensions(3000 * graphScale, 5000 * graphScale)
     }
 
     onLabelChange = newLabel => {
