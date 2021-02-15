@@ -76,7 +76,7 @@ class MainPage extends React.Component{
                                  setGraphScale={this.setGraphScale}
                                  getGraphScale={this.getGraphScale} />
                     </Col>
-                    <Col md="10" className="pt-3" style={{overflow:'auto'}} >
+                    <Col md="10" style={{padding: "0", marginLeft: "-15px"}}>
                         <Playground uploadedObject={uploadedObject} 
                                     setUploadedObject={this.setUploadedObject}
                                     jsonExportClicked={jsonExportClicked} 
