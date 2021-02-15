@@ -11,7 +11,7 @@ class NavigationBar extends React.Component{
         const { page } = this.props;
 
         return(
-            <Navbar bg="dark" variant="dark" expand="lg" style={{ minHeight: '80px' }}>
+            <Navbar bg="dark" variant="dark" expand="lg" style={{ minHeight: '80px', height: "10vh" }}>
             
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">

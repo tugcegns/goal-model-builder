@@ -66,17 +66,17 @@ class MainPage extends React.Component{
         debugger
         const { uploadedObject, jsonExportClicked, selectedTool } = this.state;
         return(
-            <div>
+            <div style={{overflow: "hidden", width:"100%", height:"100%"}}>
                 <NavigationBar handleJSONExport={this.handleJSONExport} page="playground"/>
-                <Row>
-                    <Col md="2" style={{ overflow: 'auto' }}>
+                <Row style={{overflow: "hidden", width:"100%", height:"90vh", margin: "0"}}>
+                    <Col md="2" style={{overflow: "hidden", height: "100%", paddingLeft: "0"}}>
                         <SideBar setUploadedObject={this.setUploadedObject}
                                  handleToolClick={this.handleToolClick}
                                  selectedTool={selectedTool}
                                  setGraphScale={this.setGraphScale}
                                  getGraphScale={this.getGraphScale} />
                     </Col>
-                    <Col md="10" style={{padding: "0", marginLeft: "-15px"}}>
+                    <Col md="10" style={{padding: "0", height: "100%", overflow: "scroll"}}>
                         <Playground uploadedObject={uploadedObject} 
                                     setUploadedObject={this.setUploadedObject}
                                     jsonExportClicked={jsonExportClicked} 
