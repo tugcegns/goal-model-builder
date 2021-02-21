@@ -183,7 +183,98 @@ class Playground extends React.Component{
         this.offsetY = 150;
         this.maxSize = 0;
 
-        this.CustomElement = dia.Element.define('node.role', {
+        this.CustomRoleElement = dia.Element.define('node.rolev2', {
+            attrs: {
+                c: { //for the role name
+                    strokeWidth :  1,
+                    stroke: '#111111',
+                    fill:  '#cffdd4',
+                },
+                r: { //goal container
+                    strokeWidth :  2,
+                    stroke: '#111111',
+                    fill:  'rgba(222,222,222,0.7)',
+                    fillOpacity : 0.5,
+                    strokeDasharray: 5,
+                    strokeDashoffset: 2.5,
+                    refRx: '10%',
+                    refRy: '10%',
+                },
+                label: { //for the role text
+                    textVerticalAnchor: 'middle',
+                    textAnchor: 'middle',
+                    fontSize: 28,
+                    fill: '#333333'
+                },
+            }
+        }, {
+            markup: [{
+                tagName: 'rect',
+                selector: 'r'
+            },{
+                tagName: 'circle',
+                selector: 'c'
+            },{
+                tagName: 'text',
+                selector: 'label'
+            }]
+        })
+
+        this.CustomTextElement = dia.Element.define('examples.CustomTextElement', {
+            attrs: {
+                label: {
+                    textAnchor: 'middle',
+                    textVerticalAnchor: 'middle',
+                    fontSize: 48
+                },
+                e: {
+                    strokeWidth: 1,
+                    stroke: '#000000',
+                    fill: 'rgba(255,0,0,0.3)'
+                },
+                r: {
+                    strokeWidth: 1,
+                    stroke: '#000000',
+                    fill: 'rgba(0,255,0,0.3)'
+                },
+                c: {
+                    strokeWidth: 1,
+                    stroke: '#000000',
+                    fill: 'rgba(0,0,255,0.3)'
+                },
+                outline: {
+                    ref: 'label',
+                    refX: 0,
+                    refY: 0,
+                    refWidth: '100%',
+                    refHeight: '100%',
+                    strokeWidth: 1,
+                    stroke: '#000000',
+                    strokeDasharray: '5 5',
+                    strokeDashoffset: 2.5,
+                    fill: 'none'
+                }
+            }
+        }, {
+            markup: [{
+                tagName: 'ellipse',
+                selector: 'e'
+            }, {
+                tagName: 'rect',
+                selector: 'r'
+            }, {
+                tagName: 'circle',
+                selector: 'c'
+            }, {
+                tagName: 'text',
+                selector: 'label'
+            }, {
+                tagName: 'rect',
+                selector: 'outline'
+            }]
+        });
+
+        this.CustomRole = dia.Element.define('node.role', {
             attrs: {
                 c:{
                     strokeWidth :  1,
@@ -294,7 +385,7 @@ class Playground extends React.Component{
         });
 
         shapes.node = {};
-        shapes.node.role = this.CustomElement;
+        shapes.node.role = this.CustomRole;
 
         document.addEventListener("keydown", this.onKeyDown, false);
 
@@ -324,7 +415,8 @@ class Playground extends React.Component{
         }
     }
     createRole = (label, goalCount, coordinates, isBoundary) => {
-        var role = new this.CustomElement();
+        /*
+        var role = new this.CustomRole();
         if (isBoundary){
             role.attr({
                 e: {
@@ -369,7 +461,25 @@ class Playground extends React.Component{
                 }
             });
         }
-        
+        */
+
+       var role = new this.CustomRoleElement();
+       role.attr({
+        c: {
+            ref: 'label',
+            refRCircumscribed: '60%',   //PARAMETER: adjust size of the role circle
+            refCx: '0%',
+            refCy: '0%'
+        },
+        label: {
+            ref:'r',
+            text: isBoundary?"":label.replace(/ /g, "\n"),
+        },
+        r: {
+            refWidth: '100%',
+            refHeight: '100%',
+        }
+    })
         
         let size = (goalCount-1) * 40 + 350;
         
@@ -380,7 +490,7 @@ class Playground extends React.Component{
 
         const paperSize = this.paper.getComputedSize();
 
-        role.resize(size,size);
+        role.resize(size,size);        
         if(this.offsetX >= paperSize.width - size - 50){
             this.offsetX = 100;
             this.offsetY += (this.maxSize * 1.4);
@@ -421,7 +531,7 @@ class Playground extends React.Component{
 
         link.prop('source', { id: targetID });
         link.prop('target', {id: sourceID });
-        link.prop('vertices', [{x: x+100,y: y+100}])
+        //link.prop('vertices', [{x: x+100,y: y+100}])
         link.attr('root/title', 'joint.shapes.standard.Link');
         link.attr('line/stroke', '#31a2e7');
         //link.labels([{
@@ -473,7 +583,38 @@ class Playground extends React.Component{
         return coords;
     }
 
+    
+
+
     createGraph = uploadedObject => {
+        /*
+
+        var element = new this.CustomRoleElement();
+        element.attr({
+            c: {
+                ref: 'label',
+                refRCircumscribed: '60%',   //PARAMETER: adjust size of the role circle
+                refCx: '0%',
+                refCy: '0%'
+            },
+            label: {
+                ref:'r',
+                refX: '0%',
+                refY: '0%',
+                text: 'HASAN'
+            },
+            r: {
+                refWidth: '100%',
+                refHeight: '100%',
+            }
+        })
+
+        element.position(300, 300);
+        element.resize(400, 400);
+        element.addTo(this.graph);
+
+        */
+
         for(var key in uploadedObject){
             var graphElements = [];
             let nodes = uploadedObject[key];
