@@ -185,11 +185,7 @@ class Playground extends React.Component{
 
         this.CustomRoleElement = dia.Element.define('node.rolev2', {
             attrs: {
-                c: { //for the role name
-                    strokeWidth :  1,
-                    stroke: '#111111',
-                    fill:  '#cffdd4',
-                },
+                
                 r: { //goal container
                     strokeWidth :  2,
                     stroke: '#111111',
@@ -197,14 +193,25 @@ class Playground extends React.Component{
                     fillOpacity : 0.5,
                     strokeDasharray: 5,
                     strokeDashoffset: 2.5,
+                    /*
                     refRx: '10%',
                     refRy: '10%',
+                    */
                 },
                 label: { //for the role text
+                    /*
+                    refX: 10,
+                    refY: 10,
+                    */
                     textVerticalAnchor: 'middle',
                     textAnchor: 'middle',
                     fontSize: 28,
-                    fill: '#333333'
+                    fill: '#333333',
+                },
+                c: { //for the role name
+                    strokeWidth :  1,
+                    stroke: '#111111',
+                    fill:  '#cffdd4',
                 },
             }
         }, {
@@ -220,6 +227,10 @@ class Playground extends React.Component{
             }]
         })
 
+        /*
+        #
+        #For future reference 
+        #
         this.CustomTextElement = dia.Element.define('examples.CustomTextElement', {
             attrs: {
                 label: {
@@ -273,6 +284,7 @@ class Playground extends React.Component{
                 selector: 'outline'
             }]
         });
+        */
 
         this.CustomRole = dia.Element.define('node.role', {
             attrs: {
@@ -465,20 +477,26 @@ class Playground extends React.Component{
 
        var role = new this.CustomRoleElement();
        role.attr({
-        c: {
-            ref: 'label',
-            refRCircumscribed: '60%',   //PARAMETER: adjust size of the role circle
-            refCx: '0%',
-            refCy: '0%'
-        },
-        label: {
-            ref:'r',
-            text: isBoundary?"":label.replace(/ /g, "\n"),
-        },
+           
         r: {
             refWidth: '100%',
             refHeight: '100%',
-        }
+            refRx: 0.1,
+            refRy: 0.1,
+        },
+        label: {
+            ref:'r',
+            refX: '3%',
+            refY: '3%',
+            text: isBoundary?"":label.replace(/ /g, "\n"),
+        },
+        c: {
+            ref: 'label',
+            refX: '50%',
+            refY: '50%',
+            refRCircumscribed: '60%',   //PARAMETER: adjust size of the role circle
+        },
+        
     })
         
         let size = (goalCount-1) * 40 + 350;
