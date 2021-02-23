@@ -183,7 +183,7 @@ class Playground extends React.Component{
         this.offsetY = 150;
         this.maxSize = 0;
 
-        this.CustomRoleElement = dia.Element.define('node.rolev2', {
+        this.CustomRoleElement = dia.Element.define('node.role', {
             attrs: {
                 
                 r: { //goal container
@@ -284,7 +284,6 @@ class Playground extends React.Component{
                 selector: 'outline'
             }]
         });
-        */
 
         this.CustomRole = dia.Element.define('node.role', {
             attrs: {
@@ -324,6 +323,8 @@ class Playground extends React.Component{
                 selector: 'label'
             }]
         });
+        */
+
         this.CustomLinkAnd = dia.Link.define('AndRefinementLink', {
             attrs: {
                 line: {
@@ -486,7 +487,7 @@ class Playground extends React.Component{
         },
         label: {
             ref:'r',
-            refX: '3%',
+            refX: '3%', //PARAMETER: adjust the offset of the role circle (and the label)
             refY: '3%',
             text: isBoundary?"":label.replace(/ /g, "\n"),
         },
