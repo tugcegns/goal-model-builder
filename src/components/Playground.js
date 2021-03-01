@@ -62,16 +62,19 @@ class Playground extends React.Component{
             var newY = originalPosition.y;
             var newCornerX = originalPosition.x + originalSize.width;
             var newCornerY = originalPosition.y + originalSize.height;
+
+            var checkChild = (child) => {
     
-            each(parent.getEmbeddedCells(), function(child) {
-    
-                var childBbox = child.getBBox();
+                var elementView = this.paper.findViewByModel(child);
+                var childBbox = elementView.getBBox();                
     
                 if (childBbox.x < newX) { newX = childBbox.x; }
                 if (childBbox.y < newY) { newY = childBbox.y; }
                 if (childBbox.corner().x > newCornerX) { newCornerX = childBbox.corner().x; }
                 if (childBbox.corner().y > newCornerY) { newCornerY = childBbox.corner().y; }
-            });
+            };
+
+            parent.getEmbeddedCells().forEach(checkChild)
     
             // Note that we also pass a flag so that we know we shouldn't adjust the
             // `originalPosition` and `originalSize` in our handlers as a reaction
@@ -81,6 +84,8 @@ class Playground extends React.Component{
                 size: { width: newCornerX - newX, height: newCornerY - newY }
             }, { skipParentHandler: true });
         });
+
+        //Called when a role, goal or line is clicked
         this.paper.on('cell:pointerclick', cellView => {
             this.resetSelectedCell();
             const { selectedTool } = this.props;
@@ -97,8 +102,8 @@ class Playground extends React.Component{
             
         });
         
-        this.paper.on('element:pointerclick', (elementView, eventObject, eventX, eventY) => {
-        
+        //Called when a role or goal is clicked
+        this.paper.on('element:pointerclick', (elementView, eventObject, eventX, eventY) => { 
             const { selectedTool } = this.props;
 
             var currentElement = elementView.model;
@@ -231,27 +236,18 @@ class Playground extends React.Component{
         #
         #For future reference 
         #
+        */
         this.CustomTextElement = dia.Element.define('examples.CustomTextElement', {
             attrs: {
                 label: {
                     textAnchor: 'middle',
                     textVerticalAnchor: 'middle',
-                    fontSize: 48
-                },
-                e: {
-                    strokeWidth: 1,
-                    stroke: '#000000',
-                    fill: 'rgba(255,0,0,0.3)'
+                    fontSize: 14,
                 },
                 r: {
-                    strokeWidth: 1,
+                    strokeWidth: 2,
                     stroke: '#000000',
-                    fill: 'rgba(0,255,0,0.3)'
-                },
-                c: {
-                    strokeWidth: 1,
-                    stroke: '#000000',
-                    fill: 'rgba(0,0,255,0.3)'
+                    fill: '#cffdd4',
                 },
                 outline: {
                     ref: 'label',
@@ -259,7 +255,7 @@ class Playground extends React.Component{
                     refY: 0,
                     refWidth: '100%',
                     refHeight: '100%',
-                    strokeWidth: 1,
+                    strokeWidth: 0, //PARAMETER: Make outline visible by setting strokeWidth to 1, make it invisible by setting it to 0
                     stroke: '#000000',
                     strokeDasharray: '5 5',
                     strokeDashoffset: 2.5,
@@ -268,14 +264,8 @@ class Playground extends React.Component{
             }
         }, {
             markup: [{
-                tagName: 'ellipse',
-                selector: 'e'
-            }, {
                 tagName: 'rect',
                 selector: 'r'
-            }, {
-                tagName: 'circle',
-                selector: 'c'
             }, {
                 tagName: 'text',
                 selector: 'label'
@@ -284,7 +274,7 @@ class Playground extends React.Component{
                 selector: 'outline'
             }]
         });
-
+        /*
         this.CustomRole = dia.Element.define('node.role', {
             attrs: {
                 c:{
@@ -525,6 +515,7 @@ class Playground extends React.Component{
         return role;
     }
     createGoal = (label, x, y) => {
+        /*
         var rect = new shapes.standard.Rectangle();
         const width = label.length < 16 ? 120 : label.length * 7.5;
         rect.position(x, y);
@@ -541,7 +532,29 @@ class Playground extends React.Component{
                 fill: 'blue'
             }
         });
-        return rect;
+        */
+       var element = new this.CustomTextElement();
+    element.attr({
+    label: {
+        //regex expression
+        //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
+        text: label.replace(/( [^ ]*) /g,'$1\n')
+    },
+    r: {
+        refRx: 0.1,
+        refRy: 0.1,
+        ref: 'label',
+        refX: '-5%',
+        //x: -10, // additional x offset
+        refY: '-5%',
+        //y: -10, // additional y offset
+        refWidth: '110%',
+        refHeight: '110%',
+    }
+    });
+
+    element.position(x, y);
+        return element;
     }
     createLink = (sourceID, targetID, label, x, y)=> {
         debugger
@@ -633,6 +646,29 @@ class Playground extends React.Component{
         element.addTo(this.graph);
 
         */
+       /*
+
+       var element = new this.CustomTextElement();
+    element.attr({
+    label: {
+        text: 'Hello, World!'
+    },
+    r: {
+        refRx: 0.1,
+        refRy: 0.1,
+        ref: 'label',
+        refX: '-5%',
+        //x: -10, // additional x offset
+        refY: '-5%',
+        //y: -10, // additional y offset
+        refWidth: '110%',
+        refHeight: '110%',
+    }
+    });
+
+    element.position(300, 300);
+    element.addTo(this.graph);
+       */
 
         for(var key in uploadedObject){
             var graphElements = [];
@@ -733,7 +769,7 @@ class Playground extends React.Component{
         this.paper.setDimensions(3000 * graphScale, 5000 * graphScale)
     }
 
-    onLabelChange = newLabel => {
+    onLabelChange = newLabel => { //TODO create a function to process label string before setting it
         const {selectedElement} = this.state;
         if(selectedElement.get('type') === "standard.Link") {
             selectedElement.labels([{
