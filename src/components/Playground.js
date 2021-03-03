@@ -90,8 +90,7 @@ class Playground extends React.Component{
       var currentCell = cellView.model;
 
       currentCell.attr('body/stroke', '#fa1234')
-      currentCell.attr('c/stroke', '#fa1234')
-      currentCell.attr('e/stroke', '#fa1234')
+      currentCell.attr('r/stroke', '#fa1234')
       currentCell.attr('line/stroke', '#fa1234')
             
       this.setState({ selectedCell: currentCell });
@@ -108,7 +107,7 @@ class Playground extends React.Component{
         currentElement.embed(goal);
         this.graph.addCell(goal);
         this.props.handleToolClick(null);
-      } else if ((selectedTool === 'and' || selectedTool === 'or') && currentElement.get('type') === 'standard.Rectangle') {
+      } else if ((selectedTool === 'and' || selectedTool === 'or') && currentElement.get('type') === 'examples.CustomGoalElement') {
         var { source } = this.state;
 
         if (source) {
@@ -219,7 +218,7 @@ class Playground extends React.Component{
     #For future reference 
     #
     */
-    this.CustomTextElement = dia.Element.define('examples.CustomTextElement', {
+    this.CustomGoalElement = dia.Element.define('examples.CustomGoalElement', {
       attrs: {
         label: {
           textAnchor: 'middle',
@@ -227,7 +226,7 @@ class Playground extends React.Component{
           fontSize: 14,
         },
         r: {
-          strokeWidth: 2,
+          strokeWidth: 1,
           stroke: '#000000',
           fill: '#cffdd4',
         },
@@ -391,7 +390,7 @@ class Playground extends React.Component{
     if(selectedCell){
       selectedCell.attr('body/stroke', '#000000')
       selectedCell.attr('c/stroke', '#000000')
-      selectedCell.attr('e/stroke', '#000000')
+      selectedCell.attr('r/stroke', '#000000')
       selectedCell.attr('line/stroke', '#31a2e7')
       this.setState({ selectedCell: null })
     }
@@ -511,7 +510,7 @@ class Playground extends React.Component{
             }
         });
         */
-    var element = new this.CustomTextElement();
+    var element = new this.CustomGoalElement();
     element.attr({
       label: {
         //regex expression
@@ -626,7 +625,7 @@ class Playground extends React.Component{
         */
        /*
 
-       var element = new this.CustomTextElement();
+       var element = new this.CustomGoalElement();
     element.attr({
     label: {
         text: 'Hello, World!'
@@ -674,7 +673,7 @@ class Playground extends React.Component{
             node.label, 
             parentGoalCoordinates.x, 
             parentGoalCoordinates.y
-            );
+          );
           role.embed(goal);
         } // else createTask
         if( !node.children || node.children.length === 0 )continue;
