@@ -34,6 +34,7 @@ class SideBar extends React.Component{
                 backgroundColor: '#e1e1e1',
                 paddingTop: '20px',
                 height: '100%',
+                overflowY: 'auto',
                 boxShadow: '4px 2px 5px 0px #a1a1a1',
                 paddingBottom: '150px'
             }}>
