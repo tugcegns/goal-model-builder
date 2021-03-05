@@ -193,6 +193,7 @@ class Playground extends React.Component{
           textAnchor: 'middle',
           fontSize: 28,
           fill: '#333333',
+          'font-weight': 'bold',
         },
         c: { //for the role name
           strokeWidth :  1,
@@ -515,17 +516,18 @@ class Playground extends React.Component{
       label: {
         //regex expression
         //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
-        text: label.replace(/( [^ ]*) /g,'$1\n')
+        text: label.replace(/( [^ ]*) /g,'$1\n'),
+        'font-weight': 'bold',
       },
       r: {
-          refRx: 0.1,
-          refRy: 0.1,
+          refRx: 0.2,
+          refRy: 0.8,
           ref: 'label',
-          refX: '-5%',
+          refX: '-10%',
           //x: -10, // additional x offset
           refY: '-5%',
           //y: -10, // additional y offset
-          refWidth: '110%',
+          refWidth: '120%',
           refHeight: '110%',
         }
     });
