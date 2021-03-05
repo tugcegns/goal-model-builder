@@ -578,7 +578,7 @@ class Playground extends React.Component{
   }
 
   computeSubgoalCoordinates = n => {
-    const r = n * 40 + 100;
+    const r = n * 40 + 60;
     const startAngle = 180 / (2*n) + 180;
     const angleInterval = 180 / n;
     const pi = Math.PI;
@@ -661,14 +661,14 @@ class Playground extends React.Component{
       const role = this.createRole(key, childrenCount, false,  isBoundary);
       const roleSize = role.get('size');
 
-      let parentGoalOffsets = {x: roleSize.width / 3, y: 50};
+      let parentGoalOffsets = {x: roleSize.width / 10, y: 300};
       let maxRadiusInRow = 0;
       //graphElements.push(role);
       for (var i in nodes){
         let node = nodes[i];
         let parentGoalCoordinates = {
-          x: role.get('position').x + parentGoalOffsets.x,
-          y: role.get('position').y + parentGoalOffsets.y
+          x: role.get('position').x + parentGoalOffsets.x + 100, //PARAMETER: Offset of goals with respect to the role circle
+          y: role.get('position').y + parentGoalOffsets.y - 100
         }
         if(node.type == 'goal') {
           var goal = this.createGoal(
@@ -687,9 +687,9 @@ class Playground extends React.Component{
           var subgoalCoordinates;
           if(numberOfSubgoals > 0){
             subgoalCoordinates = this.computeSubgoalCoordinates(numberOfSubgoals);
-            parentGoalCoordinates.x += (radius*0.9) 
+            parentGoalCoordinates.x += (radius*0.6) //
           }
-          parentGoalOffsets.x += 225 + (radius*0.9);
+          parentGoalOffsets.x += 225 + (radius*0.6); //
           if(parentGoalOffsets.x > (roleSize.width * 0.8)){
             parentGoalOffsets.x =  0;
             parentGoalOffsets.y += (125 + maxRadiusInRow);
