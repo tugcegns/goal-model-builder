@@ -35,6 +35,7 @@ class Playground extends React.Component{
         }
     });
 
+    //https://resources.jointjs.com/tutorial/hierarchy
     this.graph.on('change:position', (cell, newPosition, opt) => {
       if (opt.skipParentHandler) return;
       
@@ -60,17 +61,20 @@ class Playground extends React.Component{
         var newCornerX = originalPosition.x + originalSize.width;
         var newCornerY = originalPosition.y + originalSize.height;
 
+        const graphScale = this.props.getGraphScale()
+
         var checkChild = (child) => {
           var elementView = this.paper.findViewByModel(child);
           var childBbox = elementView.getBBox();                
     
-          if (childBbox.x < newX) { newX = childBbox.x; }
-          if (childBbox.y < newY) { newY = childBbox.y; }
-          if (childBbox.corner().x > newCornerX) { newCornerX = childBbox.corner().x; }
-          if (childBbox.corner().y > newCornerY) { newCornerY = childBbox.corner().y; }
+          if (childBbox.x/graphScale < newX) { newX = childBbox.x/graphScale; }
+          if (childBbox.y/graphScale < newY) { newY = childBbox.y/graphScale; }
+          if (childBbox.corner().x/graphScale > newCornerX) { newCornerX = childBbox.corner().x/graphScale; }
+          if (childBbox.corner().y/graphScale > newCornerY) { newCornerY = childBbox.corner().y/graphScale; }
         };
 
-        parent.getEmbeddedCells().forEach(checkChild)
+        //parent.getEmbeddedCells().forEach(checkChild)
+        checkChild(cell)
     
         // Note that we also pass a flag so that we know we shouldn't adjust the
         // `originalPosition` and `originalSize` in our handlers as a reaction
@@ -83,6 +87,7 @@ class Playground extends React.Component{
 
     //Called when a role, goal or line is clicked
     this.paper.on('cell:pointerclick', cellView => {
+      //console.log(cellView.findBySelector('c')[0]['r'].baseVal.value)
       this.resetSelectedCell();
       const { selectedTool } = this.props;
       if(selectedTool !== null && selectedTool !== 'and' && selectedTool !== 'or') return;
@@ -513,7 +518,7 @@ class Playground extends React.Component{
         */
     var element = new this.CustomGoalElement();
     element.attr({
-      label: {
+      label: { //textWrap element can be used instead. textWrap automatically places new line element
         //regex expression
         //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
         text: label.replace(/( [^ ]*) /g,'$1\n'),
@@ -659,16 +664,18 @@ class Playground extends React.Component{
         isBoundary = true;
       }
       const role = this.createRole(key, childrenCount, false,  isBoundary);
+      //roleSize is the size of the role circle. There must be a better way, I am unable to find
       const roleSize = role.get('size');
+      const roleRadius = this.paper.findViewByModel(role).findBySelector('c')[0]['r'].baseVal.value
 
-      let parentGoalOffsets = {x: roleSize.width / 10, y: 300};
+      let parentGoalOffsets = {x: 2*roleRadius, y: 2*roleRadius};
       let maxRadiusInRow = 0;
       //graphElements.push(role);
       for (var i in nodes){
         let node = nodes[i];
         let parentGoalCoordinates = {
           x: role.get('position').x + parentGoalOffsets.x + 100, //PARAMETER: Offset of goals with respect to the role circle
-          y: role.get('position').y + parentGoalOffsets.y - 100
+          y: role.get('position').y + parentGoalOffsets.y
         }
         if(node.type == 'goal') {
           var goal = this.createGoal(
@@ -720,7 +727,7 @@ class Playground extends React.Component{
       this.graph.addCells(graphElements);
         
       const paperSize = this.paper.getComputedSize();
-      console.log(paperSize);
+      //console.log(paperSize);
             
     }
   }
