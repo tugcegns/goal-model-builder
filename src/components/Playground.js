@@ -48,41 +48,41 @@ class Playground extends React.Component{
       }
       var parentId = cell.get('parent');
       if (!parentId) return;
-        var parent = this.graph.getCell(parentId);
+      var parent = this.graph.getCell(parentId);
     
-        if (!parent.get('originalPosition')) parent.set('originalPosition', parent.get('position'));
-        if (!parent.get('originalSize')) parent.set('originalSize', parent.get('size'));
+      if (!parent.get('originalPosition')) parent.set('originalPosition', parent.get('position'));
+      if (!parent.get('originalSize')) parent.set('originalSize', parent.get('size'));
     
-        var originalPosition = parent.get('originalPosition');
-        var originalSize = parent.get('originalSize');
+      var originalPosition = parent.get('originalPosition');
+      var originalSize = parent.get('originalSize');
     
-        var newX = originalPosition.x;
-        var newY = originalPosition.y;
-        var newCornerX = originalPosition.x + originalSize.width;
-        var newCornerY = originalPosition.y + originalSize.height;
+      var newX = originalPosition.x;
+      var newY = originalPosition.y;
+      var newCornerX = originalPosition.x + originalSize.width;
+      var newCornerY = originalPosition.y + originalSize.height;
 
-        const graphScale = this.props.getGraphScale()
+      const graphScale = this.props.getGraphScale()
 
-        var checkChild = (child) => {
-          var elementView = this.paper.findViewByModel(child);
-          var childBbox = elementView.getBBox();                
+      var checkChild = (child) => {
+        var elementView = this.paper.findViewByModel(child);
+        var childBbox = elementView.getBBox();                
     
-          if (childBbox.x/graphScale < newX) { newX = childBbox.x/graphScale; }
-          if (childBbox.y/graphScale < newY) { newY = childBbox.y/graphScale; }
-          if (childBbox.corner().x/graphScale > newCornerX) { newCornerX = childBbox.corner().x/graphScale; }
-          if (childBbox.corner().y/graphScale > newCornerY) { newCornerY = childBbox.corner().y/graphScale; }
-        };
+        if (childBbox.x/graphScale < newX) { newX = childBbox.x/graphScale; }
+        if (childBbox.y/graphScale < newY) { newY = childBbox.y/graphScale; }
+        if (childBbox.corner().x/graphScale > newCornerX) { newCornerX = childBbox.corner().x/graphScale; }
+        if (childBbox.corner().y/graphScale > newCornerY) { newCornerY = childBbox.corner().y/graphScale; }
+      };
 
-        //parent.getEmbeddedCells().forEach(checkChild)
-        checkChild(cell)
+      //parent.getEmbeddedCells().forEach(checkChild)
+      checkChild(cell)
     
-        // Note that we also pass a flag so that we know we shouldn't adjust the
-        // `originalPosition` and `originalSize` in our handlers as a reaction
-        // on the following `set()` call.
-        parent.set({
-          position: { x: newX, y: newY },
-          size: { width: newCornerX - newX, height: newCornerY - newY }
-          }, { skipParentHandler: true });
+      // Note that we also pass a flag so that we know we shouldn't adjust the
+      // `originalPosition` and `originalSize` in our handlers as a reaction
+      // on the following `set()` call.
+      parent.set({
+        position: { x: newX, y: newY },
+        size: { width: newCornerX - newX, height: newCornerY - newY }
+        }, { skipParentHandler: true });
     });
 
     //Called when a role, goal or line is clicked
