@@ -473,7 +473,7 @@ class Playground extends React.Component{
       },
     })
 
-    let size = (goalCount-1) * 40 + 350;
+    let size = (goalCount-1) * 30 + 350;
 
     if(size > this.maxSize) {
       this.maxSize = size;
@@ -668,7 +668,7 @@ class Playground extends React.Component{
       const roleSize = role.get('size');
       const roleRadius = this.paper.findViewByModel(role).findBySelector('c')[0]['r'].baseVal.value
 
-      let parentGoalOffsets = {x: 2*roleRadius, y: 2*roleRadius};
+      let parentGoalOffsets = {x: 2*roleRadius, y: roleRadius};
       let maxRadiusInRow = 0;
       //graphElements.push(role);
       for (var i in nodes){
@@ -689,7 +689,7 @@ class Playground extends React.Component{
         let children = node.children[0];
         if(children.type == 'goal'){
           const numberOfSubgoals = children.label ? children.label.length : 0;
-          const radius = numberOfSubgoals * 40 + 100;
+          const radius = numberOfSubgoals * 30 + 100;
           if(radius > maxRadiusInRow) maxRadiusInRow = radius;
           var subgoalCoordinates;
           if(numberOfSubgoals > 0){
@@ -697,7 +697,7 @@ class Playground extends React.Component{
             parentGoalCoordinates.x += (radius*0.6) //
           }
           parentGoalOffsets.x += 225 + (radius*0.6); //
-          if(parentGoalOffsets.x > (roleSize.width * 0.8)){
+          if(parentGoalOffsets.x > (roleSize.width * 0.8)){ //row is filled
             parentGoalOffsets.x =  0;
             parentGoalOffsets.y += (125 + maxRadiusInRow);
             maxRadiusInRow = 0;
