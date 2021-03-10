@@ -47,8 +47,8 @@ class SideBar extends React.Component{
                 </div>
                 <div className="text-center mt-4">
                     Zoom
-                    <Button variant="info" onClick={() => setGraphScale(getGraphScale() + 0.1)}>  In </Button>
-                    <Button variant="info" onClick={() => setGraphScale(getGraphScale() - 0.1)}>  Out </Button>
+                    <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() + 0.1)}>In</Button>
+                    <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() - 0.1)}>Out</Button>
                 </div>
             </div>
         );
