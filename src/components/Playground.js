@@ -112,7 +112,7 @@ class Playground extends React.Component{
         currentElement.embed(goal);
         this.graph.addCell(goal);
         this.props.handleToolClick(null);
-      } else if ((selectedTool === 'and' || selectedTool === 'or') && currentElement.get('type') === 'examples.CustomGoalElement') {
+      } else if ((selectedTool === 'and' || selectedTool === 'or') && currentElement.get('type') === 'node.goal') {
         var { source } = this.state;
 
         if (source) {
@@ -224,7 +224,7 @@ class Playground extends React.Component{
     #For future reference 
     #
     */
-    this.CustomGoalElement = dia.Element.define('examples.CustomGoalElement', {
+    this.CustomGoalElement = dia.Element.define('node.goal', {
       attrs: {
         label: {
           textAnchor: 'middle',
@@ -463,7 +463,7 @@ class Playground extends React.Component{
           ref:'r',
           refX: '3%', //PARAMETER: adjust the offset of the role circle (and the label)
           refY: '3%',
-          text: isBoundary?"":label.replace(/ /g, "\n"),
+          text: isBoundary?"":this.processLabel(label, 'node.role'),
       },
       c: {
           ref: 'label',
@@ -521,7 +521,7 @@ class Playground extends React.Component{
       label: { //textWrap element can be used instead. textWrap automatically places new line element
         //regex expression
         //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
-        text: label.replace(/( [^ ]*) /g,'$1\n'),
+        text: this.processLabel(label, 'node.goal'),
         'font-weight': 'bold',
       },
       r: {
@@ -754,9 +754,20 @@ class Playground extends React.Component{
     this.paper.setDimensions(3000 * graphScale, 5000 * graphScale)
   }
 
+  processLabel = (label, elementType) => {
+    if (elementType == 'node.goal') {
+      return label.replace(/( [^ ]*) /g,'$1\n')
+    } else if (elementType == 'node.role') {
+      return label.replace(/ /g, "\n")
+    } else {
+      return "undefined element"
+    }
+  }
+
   onLabelChange = newLabel => { //TODO create a function to process label string before setting it
     const {selectedElement} = this.state;
-    if(selectedElement.get('type') === "standard.Link") {
+    const elementType = selectedElement.get('type')
+    if(elementType === "standard.Link") {
       selectedElement.labels([{
         attrs: {
           text: {
@@ -764,7 +775,7 @@ class Playground extends React.Component{
           }
         }
       }]);
-    }else selectedElement.attr('label/text', newLabel);
+    }else selectedElement.attr('label/text', this.processLabel(newLabel, elementType));
   }
 
   onKeyDown = event => {
