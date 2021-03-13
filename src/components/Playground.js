@@ -519,8 +519,6 @@ class Playground extends React.Component{
     var element = new this.CustomGoalElement();
     element.attr({
       label: { //textWrap element can be used instead. textWrap automatically places new line element
-        //regex expression
-        //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
         text: this.processLabel(label, 'node.goal'),
         'font-weight': 'bold',
       },
@@ -756,7 +754,14 @@ class Playground extends React.Component{
 
   processLabel = (label, elementType) => {
     if (elementType == 'node.goal') {
-      return label.replace(/( [^ ]*) /g,'$1\n')
+      const   l = label.length
+      //label is too short. Since we are drawing the goal container by
+      //looking at the size of the label, container becomes too small.
+      //Thus, we place white space around the label.
+      if (l < 6) return " ".repeat(l)+label+" ".repeat(l)
+      //label is not too small, we replace every two white space
+      //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
+      else return label.replace(/( [^ ]*) /g,'$1\n')
     } else if (elementType == 'node.role') {
       return label.replace(/ /g, "\n")
     } else {
