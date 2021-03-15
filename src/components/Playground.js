@@ -73,8 +73,8 @@ class Playground extends React.Component{
         if (childBbox.corner().y/graphScale > newCornerY) { newCornerY = childBbox.corner().y/graphScale; }
       };
 
-      //parent.getEmbeddedCells().forEach(checkChild)
-      checkChild(cell)
+      parent.getEmbeddedCells().forEach(checkChild)
+      //checkChild(cell)
     
       // Note that we also pass a flag so that we know we shouldn't adjust the
       // `originalPosition` and `originalSize` in our handlers as a reaction
@@ -171,7 +171,8 @@ class Playground extends React.Component{
       this.props.handleToolClick(null);      
     });
 
-    this.offsetX = 150;
+    
+    this.offsetX = 150; //PARAMETER: space between role containers
     this.offsetY = 150;
     this.maxSize = 0;
 
@@ -473,7 +474,7 @@ class Playground extends React.Component{
       },
     })
 
-    let size = (goalCount-1) * 30 + 350;
+    let size = (goalCount-1) * 15 + 300;
 
     if(size > this.maxSize) {
       this.maxSize = size;
@@ -580,8 +581,7 @@ class Playground extends React.Component{
     return roleChildrenCount;
   }
 
-  computeSubgoalCoordinates = n => {
-    const r = n * 40 + 60;
+  computeSubgoalCoordinates = (r, n) => {
     const startAngle = 180 / (2*n) + 180;
     const angleInterval = 180 / n;
     const pi = Math.PI;
@@ -652,6 +652,9 @@ class Playground extends React.Component{
     element.addTo(this.graph);
        */
 
+    //PARAMETER: Offset of goals relative to upper left corner of the role container
+    const goalOffset = {x:100, y:10}
+
     for(var key in uploadedObject){
       var graphElements = [];
       let nodes = uploadedObject[key];
@@ -664,15 +667,15 @@ class Playground extends React.Component{
       const role = this.createRole(key, childrenCount, false,  isBoundary);
       //roleSize is the size of the role circle. There must be a better way, I am unable to find
       const roleSize = role.get('size');
-      const roleRadius = this.paper.findViewByModel(role).findBySelector('c')[0]['r'].baseVal.value
-
-      let parentGoalOffsets = {x: 2*roleRadius, y: roleRadius};
+      const roleRadius = role.findView(this.paper).selectors.c.r.baseVal.value
+      
+      let parentGoalOffsets = {x: roleSize.width/10+roleRadius, y: roleSize.height/10+roleRadius/4 + goalOffset.y};
       let maxRadiusInRow = 0;
       //graphElements.push(role);
       for (var i in nodes){
         let node = nodes[i];
         let parentGoalCoordinates = {
-          x: role.get('position').x + parentGoalOffsets.x + 100, //PARAMETER: Offset of goals with respect to the role circle
+          x: role.get('position').x + parentGoalOffsets.x, //PARAMETER: Offset of goals with respect to the role circle
           y: role.get('position').y + parentGoalOffsets.y
         }
         if(node.type == 'goal') {
@@ -687,17 +690,17 @@ class Playground extends React.Component{
         let children = node.children[0];
         if(children.type == 'goal'){
           const numberOfSubgoals = children.label ? children.label.length : 0;
-          const radius = numberOfSubgoals * 30 + 100;
+          const radius = numberOfSubgoals * 20 + 50;
           if(radius > maxRadiusInRow) maxRadiusInRow = radius;
           var subgoalCoordinates;
           if(numberOfSubgoals > 0){
-            subgoalCoordinates = this.computeSubgoalCoordinates(numberOfSubgoals);
+            subgoalCoordinates = this.computeSubgoalCoordinates(radius, numberOfSubgoals);
             parentGoalCoordinates.x += (radius*0.6) //
           }
-          parentGoalOffsets.x += 225 + (radius*0.6); //
+          parentGoalOffsets.x += 100 + (radius); //
           if(parentGoalOffsets.x > (roleSize.width * 0.8)){ //row is filled
-            parentGoalOffsets.x =  0;
-            parentGoalOffsets.y += (125 + maxRadiusInRow);
+            parentGoalOffsets.x =  goalOffset.x;
+            parentGoalOffsets.y += (50 + maxRadiusInRow);
             maxRadiusInRow = 0;
           }
                     
