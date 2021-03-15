@@ -108,7 +108,7 @@ class Playground extends React.Component{
       var currentElement = elementView.model;
 
       if (selectedTool === "goal" && currentElement.get('type') == 'node.role') {
-        const goal = this.createGoal("Goal", eventX - 50, eventY - 25);
+        const goal = this.createGoal("Goal", eventX, eventY);
         currentElement.embed(goal);
         this.graph.addCell(goal);
         this.props.handleToolClick(null);
@@ -129,9 +129,7 @@ class Playground extends React.Component{
             }              
           }
           if (targetID === sourceID) return;
-          const x = (source.get('position').x + currentElement.get('position').x) / 2;
-          const y = (source.get('position').y + currentElement.get('position').y) / 2 - 50;
-          const link = this.createLink(sourceID, targetID, selectedTool, x, y);
+          const link = this.createLink(sourceID, targetID, selectedTool);
           const role = this.graph.getCell(currentElement.get('parent'));
           role.embed(link);
           this.graph.addCell(link);
@@ -540,14 +538,13 @@ class Playground extends React.Component{
     return element;
   }
 
-  createLink = (sourceID, targetID, label, x, y)=> {
+  createLink = (sourceID, targetID, label)=> {
     debugger
     //var link = new shapes.standard.Link();
     var link = new this.CustomLinkAnd();
 
     link.prop('source', { id: targetID });
     link.prop('target', {id: sourceID });
-    //link.prop('vertices', [{x: x+100,y: y+100}])
     link.attr('root/title', 'joint.shapes.standard.Link');
     link.attr('line/stroke', '#31a2e7');
     //link.labels([{
@@ -674,8 +671,20 @@ class Playground extends React.Component{
       //graphElements.push(role);
       for (var i in nodes){
         let node = nodes[i];
+
+        var radius = 0
+        var numberOfSubgoals = 0
+        var hasSubgoals = false
+        var children = null
+        if( node.children && node.children.length != 0 ) {
+          hasSubgoals = true
+          children = node.children[0]
+          numberOfSubgoals = children.label ? children.label.length : 0;
+          radius = numberOfSubgoals * 20 + 50;
+        }
+
         let parentGoalCoordinates = {
-          x: role.get('position').x + parentGoalOffsets.x, //PARAMETER: Offset of goals with respect to the role circle
+          x: role.get('position').x + parentGoalOffsets.x + radius/2,//Math.cos((2*numberOfSubgoals+1)*Math.PI), //PARAMETER: Offset of goals with respect to the role circle
           y: role.get('position').y + parentGoalOffsets.y
         }
         if(node.type == 'goal') {
@@ -686,18 +695,16 @@ class Playground extends React.Component{
           );
           role.embed(goal);
         } // else createTask
-        if( !node.children || node.children.length === 0 )continue;
-        let children = node.children[0];
+        if (!hasSubgoals)continue
+
         if(children.type == 'goal'){
-          const numberOfSubgoals = children.label ? children.label.length : 0;
-          const radius = numberOfSubgoals * 20 + 50;
           if(radius > maxRadiusInRow) maxRadiusInRow = radius;
           var subgoalCoordinates;
           if(numberOfSubgoals > 0){
             subgoalCoordinates = this.computeSubgoalCoordinates(radius, numberOfSubgoals);
-            parentGoalCoordinates.x += (radius*0.6) //
+            parentGoalCoordinates.x += (radius*0.8) //
           }
-          parentGoalOffsets.x += 100 + (radius); //
+          parentGoalOffsets.x += 100 + (radius*1.2); //PARAMETER: horizontal distance between goals
           if(parentGoalOffsets.x > (roleSize.width * 0.8)){ //row is filled
             parentGoalOffsets.x =  goalOffset.x;
             parentGoalOffsets.y += (50 + maxRadiusInRow);
@@ -706,7 +713,7 @@ class Playground extends React.Component{
                     
           for(var i in children.label){
             let childGoalCoordinates = {
-              x: parentGoalCoordinates.x + subgoalCoordinates[i].x - (radius*0.6),
+              x: parentGoalCoordinates.x + subgoalCoordinates[i].x - (radius*0.8),
               y: parentGoalCoordinates.y - subgoalCoordinates[i].y
             }
             var subgoal = this.createGoal(children.label[i], childGoalCoordinates.x, childGoalCoordinates.y);
