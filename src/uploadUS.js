@@ -3,7 +3,7 @@ import React, { Component, useCallback } from "react";
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom'; 
 import NavigationBar from "./components/NavigationBar";
-import { Row, Col, Container, Button, Modal } from "react-bootstrap";
+import { Row, Col, Container, Button, Modal, Form } from "react-bootstrap";
 import axios, { post } from "axios";
 
 class ReactUSUpload extends React.Component {
@@ -11,6 +11,7 @@ class ReactUSUpload extends React.Component {
     super(props);
     this.state = {
       file: null,
+      fileInputLabel: 'Select Your Goal Model Data',
       value: "",
       uploadedObject: {},
       showWarning: false,
@@ -44,7 +45,10 @@ class ReactUSUpload extends React.Component {
   }
 
   onChange(e) {
-    this.setState({ file: e.target.files[0] });
+    this.setState({
+      file: e.target.files[0],
+      fileInputLabel: e.target.files[0].name,
+    });
   }
 
   setValue(newValue) {
@@ -83,7 +87,8 @@ class ReactUSUpload extends React.Component {
       selectedValue={this.state.value}
       setValue={this.setValue}
     />)
-
+    
+    const { fileInputLabel } = this.state;
     return (
       <div>
         <NavigationBar page="home"/>
@@ -102,14 +107,20 @@ class ReactUSUpload extends React.Component {
                 </p>
             </Col>
           </Row>
+          <p align="center">
+          <Form>
+            <Form.File id="formcheck-api-custom" custom>
+              <Form.File.Input accept=".txt" ref={this.fileInput} 
+                  onChange={this.onChange} />
+              <Form.File.Label data-browse=". . .">
+                { fileInputLabel } 
+              </Form.File.Label>
+              <Form.Control.Feedback type="valid">If you submit it, your model will be updated!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid"> {this.props.parseErrorMessage} </Form.Control.Feedback>
+            </Form.File>
+          </Form> 
+          </p>
         </Container>
-        
-        <p align="center">
-          <label>
-            <b>File Upload: </b>
-          </label>
-          <input type="file" name="file" onChange={this.onChange} />
-        </p>
 
         <p align="center">
           Select a model type to generate your customized goal model.
