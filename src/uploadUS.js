@@ -108,7 +108,7 @@ class ReactUSUpload extends React.Component {
             </Col>
           </Row>
           <p align="center">
-          <Form>
+          <Form style={{width:"50%", margin:'auto'}}>
             <Form.File id="formcheck-api-custom" custom>
               <Form.File.Input accept=".txt" ref={this.fileInput} 
                   onChange={this.onChange} />
