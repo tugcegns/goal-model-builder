@@ -195,7 +195,6 @@ class Playground extends React.Component{
           */
           textVerticalAnchor: 'middle',
           textAnchor: 'middle',
-          fontSize: 28,
           fill: '#333333',
           'font-weight': 'bold',
         },
@@ -450,6 +449,15 @@ class Playground extends React.Component{
         }
         */
 
+    const labelWords = label.split(" ")
+    var longestWordLength = 0
+    for (const i in labelWords) {
+      const word = labelWords[i]
+      if (word.length > longestWordLength) {
+        longestWordLength = word.length
+      }
+    }
+
     var role = new this.CustomRoleElement();
     role.attr({       
       r: {
@@ -462,6 +470,7 @@ class Playground extends React.Component{
           ref:'r',
           refX: '3%', //PARAMETER: adjust the offset of the role circle (and the label)
           refY: '3%',
+          fontSize: 28 - labelWords.length - (longestWordLength<8?0:longestWordLength),
           text: isBoundary?"":this.processLabel(label, 'node.role'),
       },
       c: {
