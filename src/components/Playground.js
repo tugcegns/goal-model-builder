@@ -449,15 +449,6 @@ class Playground extends React.Component{
         }
         */
 
-    const labelWords = label.split(" ")
-    var longestWordLength = 0
-    for (const i in labelWords) {
-      const word = labelWords[i]
-      if (word.length > longestWordLength) {
-        longestWordLength = word.length
-      }
-    }
-
     var role = new this.CustomRoleElement();
     role.attr({       
       r: {
@@ -470,7 +461,7 @@ class Playground extends React.Component{
           ref:'r',
           refX: '3%', //PARAMETER: adjust the offset of the role circle (and the label)
           refY: '3%',
-          fontSize: 28 - labelWords.length - (longestWordLength<8?0:longestWordLength),
+          fontSize: this.getRoleLabelFontSize(label),
           text: isBoundary?"":this.processLabel(label, 'node.role'),
       },
       c: {
@@ -788,6 +779,18 @@ class Playground extends React.Component{
     }
   }
 
+  getRoleLabelFontSize = (label) => {
+    const labelWords = label.split(" ")
+    var longestWordLength = 0
+    for (const i in labelWords) {
+      const word = labelWords[i]
+      if (word.length > longestWordLength) {
+        longestWordLength = word.length
+      }
+    }
+    return 28 - labelWords.length - (longestWordLength<6?0:longestWordLength)
+  }
+
   onLabelChange = newLabel => { //TODO create a function to process label string before setting it
     const {selectedElement} = this.state;
     const elementType = selectedElement.get('type')
@@ -799,7 +802,10 @@ class Playground extends React.Component{
           }
         }
       }]);
-    }else selectedElement.attr('label/text', this.processLabel(newLabel, elementType));
+    }else {
+      selectedElement.attr('label/text', this.processLabel(newLabel, elementType));
+      if (elementType === "node.role") selectedElement.attr('label/fontSize', this.getRoleLabelFontSize(newLabel));
+    } 
   }
 
   onKeyDown = event => {

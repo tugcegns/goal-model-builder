@@ -13,7 +13,7 @@ class LabelModal extends React.Component{
     componentWillReceiveProps = newProps => {
         //When the label is too short, there will be white spaces around it. (See processLabel method in playground.js)
         //Used the regex expression to remove white spaces.
-        if(newProps.label) this.setState({ label: newProps.label.replace(/^\s+|\s+$|\s+(?=\s)/g, "") });
+        if(newProps.label) this.setState({ label: newProps.label.replace(/\n/g, " ").replace(/\B\s+|\s+\B/g, "") });
     }
     onSubmit = event =>{
         event.preventDefault();
