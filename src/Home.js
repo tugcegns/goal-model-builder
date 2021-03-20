@@ -28,13 +28,13 @@ class Home extends React.Component{
                             <hr/>
                         </Col>
                         <Col md="4">
-                            <img src="/img/US.png" width="240" height="210" />
+                            <img src="/img/US.png" width="100%" />
                             <p className="mt-4" >
                                 <Button href="/first" variant="outline-danger">Load User Stories</Button>{' '}
                             </p>
                         </Col>
                         <Col md="4">
-                            <img src="/img/tool.png" width="240" height="210" />
+                            <img src="/img/tool.png" width="100%" />
                             <p className="mt-4" >
                                 <Button href="/playground" variant="outline-danger">Create an Empty Model</Button>{' '}
                             </p>
