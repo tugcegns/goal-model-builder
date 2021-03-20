@@ -219,39 +219,39 @@ function HeuristicChoice(props) {
   )
 }
 
-import h1_new from "./images/h1_new.png";
-import h2_new from "./images/h2_new.png";
-import h3_new from "./images/h3_new.png";
-import h4_new from "./images/h4_new.png";
+import h1 from "./images/h1.PNG";
+import h2 from "./images/h2.PNG";
+import h3 from "./images/h3.PNG";
+import h4 from "./images/h4.PNG";
 
 const HeuristicChoiceData = [
   {
     alt: "Role-Action",
     value: "h1",
     text: "Grouped Action Verbs",
-    src: h1_new,
-    imageShape: {width: 240, height:210}
+    src: h1,
+    imageShape: {height:250}
   },
   {
     alt: "Role-Topic",
     value: "h2",
     text: "Grouped Action Object",
-    src: h2_new,
-    imageShape: {width: 220, height:200}    
+    src: h2,
+    imageShape: {height:250}    
   },
   {
     alt: "Role",
     value:"h3",
     text: "Without Role Boundary",
-    src: h3_new,
-    imageShape: {width: 260, height:200}
+    src: h3,
+    imageShape: {height:250}
   },
   {
     alt: "Role-Benefit",
     value: "h4",
     text: "Grouped Benefit",
-    src: h4_new,
-    imageShape: {width: 220, height:200}
+    src: h4,
+    imageShape: {height:250}
   }
 ]
 
