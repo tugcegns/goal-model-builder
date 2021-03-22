@@ -2,10 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from "./components/NavigationBar";
 import { Row, Col, Container, Button } from "react-bootstrap";
-import h1_new from "./images/h1_new.png";
-import h2_new from "./images/h2_new.png";
-import h3_new from "./images/h3_new.png";
-import h4_new from "./images/h4_new.png";
+import h1 from "./images/h1.PNG";
+import h2 from "./images/h2.PNG";
+import h3 from "./images/h3.PNG";
 
 class Capital extends React.Component{
     render(){
@@ -25,17 +24,17 @@ class Home extends React.Component{
                 <Container className="mt-5">
                     <Row>
                         <Col md="12">
-                            <h2 className="text-center">Welcome to Integrating Goal Models</h2>
+                            <h2 className="text-center">Welcome to Goal Model Builder</h2>
                             <hr/>
                         </Col>
                         <Col md="4">
-                            <img src="/img/US.png" width="240" height="210" />
+                            <img src="/img/US.png" width="100%" />
                             <p className="mt-4" >
                                 <Button href="/first" variant="outline-danger">Load User Stories</Button>{' '}
                             </p>
                         </Col>
                         <Col md="4">
-                            <img src="/img/tool.png" width="240" height="210" />
+                            <img src="/img/tool.png" width="100%" />
                             <p className="mt-4" >
                                 <Button href="/playground" variant="outline-danger">Create an Empty Model</Button>{' '}
                             </p>
@@ -102,13 +101,13 @@ class Home extends React.Component{
                     </Row>
                     <Row>
                         <Col md="4">
-                            <img src={h1_new} width="240" height="210" />
+                            <img src={h1} width="100%"/>
                         </Col>
                         <Col md="4">
-                            <img src={h2_new} width="240" height="210" />
+                            <img src={h2} width="100%"/>
                         </Col>
                         <Col md="4">
-                            <img src={h3_new} width="240" height="210" />
+                            <img src={h3} width="100%"/>
                         </Col>
                     </Row>
                 </Container>

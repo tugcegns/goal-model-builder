@@ -3,7 +3,7 @@ import React, { Component, useCallback } from "react";
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom'; 
 import NavigationBar from "./components/NavigationBar";
-import { Row, Col, Container, Button, Modal } from "react-bootstrap";
+import { Row, Col, Container, Button, Modal, Form } from "react-bootstrap";
 import axios, { post } from "axios";
 
 class ReactUSUpload extends React.Component {
@@ -11,6 +11,7 @@ class ReactUSUpload extends React.Component {
     super(props);
     this.state = {
       file: null,
+      fileInputLabel: 'Select Your Goal Model Data',
       value: "",
       uploadedObject: {},
       showWarning: false,
@@ -44,7 +45,10 @@ class ReactUSUpload extends React.Component {
   }
 
   onChange(e) {
-    this.setState({ file: e.target.files[0] });
+    this.setState({
+      file: e.target.files[0],
+      fileInputLabel: e.target.files[0].name,
+    });
   }
 
   setValue(newValue) {
@@ -83,7 +87,8 @@ class ReactUSUpload extends React.Component {
       selectedValue={this.state.value}
       setValue={this.setValue}
     />)
-
+    
+    const { fileInputLabel } = this.state;
     return (
       <div>
         <NavigationBar page="home"/>
@@ -102,14 +107,20 @@ class ReactUSUpload extends React.Component {
                 </p>
             </Col>
           </Row>
+          <p align="center">
+          <Form style={{width:"50%", margin:'auto'}}>
+            <Form.File id="formcheck-api-custom" custom>
+              <Form.File.Input accept=".txt" ref={this.fileInput} 
+                  onChange={this.onChange} />
+              <Form.File.Label data-browse=". . .">
+                { fileInputLabel } 
+              </Form.File.Label>
+              <Form.Control.Feedback type="valid">If you submit it, your model will be updated!</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid"> {this.props.parseErrorMessage} </Form.Control.Feedback>
+            </Form.File>
+          </Form> 
+          </p>
         </Container>
-        
-        <p align="center">
-          <label>
-            <b>File Upload: </b>
-          </label>
-          <input type="file" name="file" onChange={this.onChange} />
-        </p>
 
         <p align="center">
           Select a model type to generate your customized goal model.
@@ -208,39 +219,39 @@ function HeuristicChoice(props) {
   )
 }
 
-import h1_new from "./images/h1_new.png";
-import h2_new from "./images/h2_new.png";
-import h3_new from "./images/h3_new.png";
-import h4_new from "./images/h4_new.png";
+import h1 from "./images/h1.PNG";
+import h2 from "./images/h2.PNG";
+import h3 from "./images/h3.PNG";
+import h4 from "./images/h4.PNG";
 
 const HeuristicChoiceData = [
   {
     alt: "Role-Action",
     value: "h1",
     text: "Grouped Action Verbs",
-    src: h1_new,
-    imageShape: {width: 240, height:210}
+    src: h1,
+    imageShape: {height:250}
   },
   {
     alt: "Role-Topic",
     value: "h2",
     text: "Grouped Action Object",
-    src: h2_new,
-    imageShape: {width: 220, height:200}    
+    src: h2,
+    imageShape: {height:250}    
   },
   {
     alt: "Role",
     value:"h3",
     text: "Without Role Boundary",
-    src: h3_new,
-    imageShape: {width: 260, height:200}
+    src: h3,
+    imageShape: {height:250}
   },
   {
     alt: "Role-Benefit",
     value: "h4",
     text: "Grouped Benefit",
-    src: h4_new,
-    imageShape: {width: 220, height:200}
+    src: h4,
+    imageShape: {height:250}
   }
 ]
 
