@@ -538,10 +538,12 @@ class Playground extends React.Component{
     return element;
   }
 
-  createLink = (sourceID, targetID, label)=> {
+  createLink = (sourceID, targetID, linkType)=> {
     debugger
     //var link = new shapes.standard.Link();
-    var link = new this.CustomLinkAnd();
+    var link
+    if (linkType == 'and') link = new this.CustomLinkAnd();
+    else link = new this.CustomLinkOr();
 
     link.prop('source', { id: targetID });
     link.prop('target', {id: sourceID });
