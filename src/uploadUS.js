@@ -207,6 +207,7 @@ function HeuristicChoice(props) {
           value={props.value}
           checked={props.selectedValue === props.value}
           readOnly={true}
+          style={{marginRight: "5px"}}
         />
         <label
           className="label-style"
