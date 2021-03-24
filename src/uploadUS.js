@@ -96,10 +96,11 @@ class ReactUSUpload extends React.Component {
         <Container className="mt-5">
           <Row>
             <Col md="12">
-                <h2 className="text-center">Upload your user story set .txt format.</h2>
+                <h2 className="text-center">Upload your user story set in .txt format</h2>
                 <hr/>
+                <p>There must be a single sentence in each line.</p>
                 <p>
-                Expected format:{" "}
+                Expected sentence format:{" "}
                     <q>
                         As a <strong>role</strong>, I want <strong>action</strong> so that{" "}
                         <strong>benefit</strong>.
