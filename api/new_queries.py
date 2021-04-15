@@ -139,6 +139,28 @@ class QueryGraph:
             deflist_h3.append(d)
         return deflist_h3
 
+    def get_actions_and_benefits_by_role(graph, role_list):
+        role_actions_benefits = []
+        for role in role_list:
+            query = '''
+                    MATCH (bo:BenefitObj)<-[:BNF_OBJ]-(i:Id)-[:ROLE]->(r:Role {role_name: {role_var}})
+                    with i,bo,r
+                    match (i:Id)-[:BNF_VERB]->(bv:BenefitVerb)
+                    match (i:Id)-[:ACT_OBJ]->(ao:Object)
+                    match (i:Id)-[:ACT_VERB]->(av:Verb)
+                    RETURN r.role_name as role, av.action_verb as action_verb, ao.action_object as action_object, bo.benefit_obj as benefit_object, bv.benefit_verb as benefit_verb
+                    '''
+            result = graph.run(query, role_var=role).data()
+            d = defaultdict(list)
+            for row in result:
+                key = row['benefit_verb'] + " " + row['benefit_object']
+                value = row['action_verb'] + " " + row['action_object']
+                d[key].append(value)
+            role_actions_benefits.append(d)
+        return json.loads((str(json.dumps(role_actions_benefits))))
+
+    def create_heuristic4(role_benefit_map):
+        pass
     
     def result(roles,deflist,heuristic_number):
         if heuristic_number == 'h3':
@@ -163,17 +185,22 @@ class QueryGraph:
         graph = Graph(ip_addr = "http://localhost:7474/db/data")
         graph = QueryGraph.delete_all_db(graph)
         graph = QueryGraph.create_db(csv_path, graph)
-        roles = QueryGraph.get_role_types(graph)
-        actions_and_objects = QueryGraph.get_actions_by_role(graph,role_list=roles)
-        role_action_map = QueryGraph.create_map(roles,actions_and_objects)
+
         rslt = []
-        if heuristic_number == 'h1':
-            rslt = QueryGraph.create_heuristic1(role_action_map)
-        elif heuristic_number == 'h2':
-            rslt = QueryGraph.create_heuristic2(role_action_map)
-        else:
-            rslt = QueryGraph.create_heuristic3(role_action_map)
+        roles = QueryGraph.get_role_types(graph)
         
+        if heuristic_number in ['h1', 'h2', 'h3']:
+            actions_and_objects = QueryGraph.get_actions_by_role(graph,role_list=roles)
+            data = QueryGraph.create_map(roles,actions_and_objects)
+            if heuristic_number == 'h1':
+                rslt = QueryGraph.create_heuristic1(data)
+            elif heuristic_number == 'h2':
+                rslt = QueryGraph.create_heuristic2(data)
+            else:
+                rslt = QueryGraph.create_heuristic3(data)
+
+        elif heuristic_number in ['h4', 'h5']:
+            rslt = QueryGraph.get_actions_and_benefits_by_role(graph,role_list=roles)
+
         solution = QueryGraph.result(roles,rslt, heuristic_number)
         return json.dumps(QueryGraph.json_formatter(solution))
-
