@@ -145,6 +145,11 @@ class ReactUSUpload extends React.Component {
               {HeuristicChoiceComponents[3]}
             </Col>            
           </Row>
+          <Row>
+            <Col md="6">
+              {HeuristicChoiceComponents[4]}
+            </Col>
+          </Row>
         </Container>
       </form>
       <div align="center">
@@ -252,6 +257,13 @@ const HeuristicChoiceData = [
     alt: "Role-Benefit",
     value: "h4",
     text: "Grouped Benefit",
+    src: h4,
+    imageShape: {height:250}
+  },
+  {
+    alt: "Benefit",
+    value: "h5",
+    text: "Benefit Without Role Boundary",
     src: h4,
     imageShape: {height:250}
   }
