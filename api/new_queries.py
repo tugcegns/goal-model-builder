@@ -117,7 +117,7 @@ class QueryGraph:
         container = defaultdict(list)
         for role, rows in role_action_map.items():
             for row in rows:
-                container[row['action_object']].append(" ".join([row[k] for k in row]) + " by " + role)
+                container[row['action_object']].append(" ".join([row[k] for k in row]) + " as " + role)
         new_map = {"null":container}
         return new_map
 
@@ -153,7 +153,7 @@ class QueryGraph:
         for role, rows in role_actions_benefits_map.items():
             for row in rows:
                 key = "to " + row['benefit_verb'] + " " + row['benefit_object']
-                value = row['action_verb'] + " " + row['action_object']
+                value = row['action_verb'] + " " + row['action_object'] + " as " + role
                 container[key].append(value)
 
         new_map = {"null": container}
