@@ -24,7 +24,7 @@ class Home extends React.Component{
                 <Container className="mt-5">
                     <Row>
                         <Col md="12">
-                            <h2 className="text-center">Welcome to Integrating Goal Models</h2>
+                            <h2 className="text-center">Welcome to Goal Model Builder</h2>
                             <hr/>
                         </Col>
                         <Col md="4">

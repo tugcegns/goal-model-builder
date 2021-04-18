@@ -15,7 +15,7 @@ class NavigationBar extends React.Component{
             
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                    <Navbar.Brand style={{ fontSize: '30px', fontWeight: 'bold' }}>Integrating Goal Models</Navbar.Brand>
+                    <Navbar.Brand style={{ fontSize: '30px', fontWeight: 'bold' }}>Goal Model Builder</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link active={page === "home"} href="/">
                             Home
