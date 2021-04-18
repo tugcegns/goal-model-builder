@@ -1,0 +1,25 @@
+As an archivist, I want to mark individual files as restricted, so that they don't get shared by mistake.
+As an archivist, I want to mark groups of files as restricted, so that they don't get shared by mistake.
+As an archivist, I want to restrict a file from view.
+As an archivist, I want to restrict a group of files from view.
+As an archivist, I want to add restriction end date information to files, so that I can share files when they become open.
+As an archivist, I want to add detailed restrictions to groups of files, so that I know if and how they can be shared.
+As an archivist, I want to upload a single file.
+As an archivist, I want to upload groups of files, so that I can save time.
+As a researcher, I want to share a link to a file on social media, so that so I can show other people an interesting thing I found.
+As a researcher, I want to share reports I've written, so that it is available to staff and researchers.
+As a researcher, I want to download a file, so that I can use it for research without having to come to the reading room.
+As a researcher, I want to download reports, so that I can use them in immediate and future in talks and articles.
+As a researcher, I want to access tagged working papers, so that my research process is better informed.
+As a researcher, I want to access educational outreach materials, so that I can make connections with institutions.
+As a researcher, I want to access digitized archival materials without mediation, so that I can decide what, I want to look at.
+As an archivist, I want to search images by photographer.
+As an archivist, I want to search images by people represented in them.
+As an archivist, I want to search images by place the photo was taken.
+As an archivist, I want to search images by rights.
+As an archivist, I want to search index cards and other non-public finding aids, so that I can provide better research assistance.
+As an archivist, I want to search individual material types.
+As an archivist, I want to view collection files, so that I can gain background information for processing a collection.
+As an archivist, I want to view physical locations for non-archival material, so that I can provide research services to donors.
+As an administrator, I want to create user groups, so that I can control user permissions.
+As an administrator, I want to create user roles, so that I can group users by role.
