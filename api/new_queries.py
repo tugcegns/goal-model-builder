@@ -100,7 +100,7 @@ class QueryGraph:
         for role, rows in role_action_map.items():
             d = defaultdict(list)
             for row in rows:
-                d[row['action_verb'] + ' operations conducted'].append(" ".join([row[k] for k in row]))
+                d[row['action_verb'] + ' operations conducted'].append(" ".join(row.values()))
             new_map[role] = d
         return new_map
     
@@ -109,7 +109,7 @@ class QueryGraph:
         for role, rows in role_action_map.items():
             d = defaultdict(list)
             for row in rows:
-                d[row['action_object'] + ' operations done'].append(" ".join([row[k] for k in row]))
+                d[row['action_object'] + ' operations done'].append(" ".join(row.values()))
             new_map[role] = d
         return new_map
 
@@ -117,7 +117,7 @@ class QueryGraph:
         container = defaultdict(list)
         for role, rows in role_action_map.items():
             for row in rows:
-                container[row['action_object']].append(" ".join([row[k] for k in row]) + " as " + role)
+                container[row['action_object']].append(" ".join(row.values()) + " as " + role)
         new_map = {"null":container}
         return new_map
 
@@ -142,6 +142,8 @@ class QueryGraph:
         for role, rows in role_actions_benefits_map.items():
             d = defaultdict(list)
             for row in rows:
+                if "None" in row.values():
+                    continue
                 key = "to " + row['benefit_verb'] + " " + row['benefit_object']
                 value = row['action_verb'] + " " + row['action_object']
                 d[key].append(value)
@@ -152,6 +154,8 @@ class QueryGraph:
         container = defaultdict(list)
         for role, rows in role_actions_benefits_map.items():
             for row in rows:
+                if "None" in row.values():
+                    continue
                 key = "to " + row['benefit_verb'] + " " + row['benefit_object']
                 value = row['action_verb'] + " " + row['action_object'] + " as " + role
                 container[key].append(value)
