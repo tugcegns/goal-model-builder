@@ -139,28 +139,46 @@ class QueryGraph:
 
     def create_heuristic4(role_actions_benefits_map):
         new_map = defaultdict(list)
-        for role, rows in role_actions_benefits_map.items():
-            d = defaultdict(list)
-            for row in rows:
-                if "None" in row.values():
-                    continue
-                key = "to " + row['benefit_verb'] + " " + row['benefit_object']
-                value = row['action_verb'] + " " + row['action_object']
-                d[key].append(value)
-            new_map[role] = d
+        
+        with open("verb_tenses.json") as f:
+            verbs = json.load(f)['verbs']
+            for role, rows in role_actions_benefits_map.items():
+                d = defaultdict(list)
+                for row in rows:
+                    if "None" in row.values():
+                        continue
+
+                    key = ""
+                    if row['benefit_verb'] in verbs:
+                        key = row['benefit_object'] + " " + verbs[row['benefit_verb']]
+                    else:
+                        key = row['benefit_verb'] + " " + row['benefit_object']
+
+                    value = row['action_verb'] + " " + row['action_object']
+                    d[key].append(value)
+                new_map[role] = d
         return new_map
         
     def create_heuristic5(role_actions_benefits_map):
         container = defaultdict(list)
-        for role, rows in role_actions_benefits_map.items():
-            for row in rows:
-                if "None" in row.values():
-                    continue
-                key = "to " + row['benefit_verb'] + " " + row['benefit_object']
-                value = row['action_verb'] + " " + row['action_object'] + " as " + role
-                container[key].append(value)
+        
+        with open("verb_tenses.json") as f:
+            verbs = json.load(f)['verbs']
+            for role, rows in role_actions_benefits_map.items():
+                for row in rows:
+                    if "None" in row.values():
+                        continue
 
-        new_map = {"null": container}
+                    key = ""
+                    if row['benefit_verb'] in verbs:
+                        key = row['benefit_object'] + " " + verbs[row['benefit_verb']]
+                    else:
+                        key = row['benefit_verb'] + " " + row['benefit_object']
+
+                    value = row['action_verb'] + " " + row['action_object'] + " as " + role
+                    container[key].append(value)
+
+            new_map = {"null": container}
         return new_map
     
     def create_map(roles, objects):
