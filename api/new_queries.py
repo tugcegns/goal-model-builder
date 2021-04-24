@@ -97,27 +97,57 @@ class QueryGraph:
     
     def create_heuristic1(role_action_map):
         new_map = defaultdict(list)
-        for role, rows in role_action_map.items():
-            d = defaultdict(list)
-            for row in rows:
-                d[row['action_verb'] + ' operations conducted'].append(" ".join(row.values()))
+        
+        with open("verb_tenses.json") as f:
+            verbs = json.load(f)['verbs']
+            for role, rows in role_action_map.items():
+                d = defaultdict(list)
+                for row in rows:
+
+                    value = ""
+                    if row['action_verb'] in verbs:
+                        value = row['action_object'] + " " + verbs[row['action_verb']]
+                    else:
+                        value = " ".join(row.values())
+
+                d[row['action_verb'] + ' operations conducted'].append(value)
             new_map[role] = d
         return new_map
     
     def create_heuristic2(role_action_map):
         new_map = defaultdict(list)
-        for role, rows in role_action_map.items():
-            d = defaultdict(list)
-            for row in rows:
-                d[row['action_object'] + ' operations done'].append(" ".join(row.values()))
-            new_map[role] = d
+        
+        with open("verb_tenses.json") as f:
+            verbs = json.load(f)['verbs']
+            for role, rows in role_action_map.items():
+                d = defaultdict(list)
+                for row in rows:
+
+                    value = ""
+                    if row['action_verb'] in verbs:
+                        value = row['action_object'] + " " + verbs[row['action_verb']]
+                    else:
+                        value = " ".join(row.values())
+
+                    d[row['action_object'] + ' operations done'].append(value)
+                new_map[role] = d
         return new_map
 
     def create_heuristic3(role_action_map):
         container = defaultdict(list)
-        for role, rows in role_action_map.items():
-            for row in rows:
-                container[row['action_object']].append(" ".join(row.values()) + " as " + role)
+
+        with open("verb_tenses.json") as f:
+            verbs = json.load(f)['verbs']
+            for role, rows in role_action_map.items():
+                for row in rows:
+
+                    value = ""
+                    if row['action_verb'] in verbs:
+                        value = row['action_object'] + " " + verbs[row['action_verb']] + " as " + role
+                    else:
+                        value = " ".join(row.values()) + " as " + role
+
+                    container[row['action_object']].append(value)
         new_map = {"null":container}
         return new_map
 
@@ -154,7 +184,12 @@ class QueryGraph:
                     else:
                         key = row['benefit_verb'] + " " + row['benefit_object']
 
-                    value = row['action_verb'] + " " + row['action_object']
+                    value = ""
+                    if row['action_verb'] in verbs:
+                        value = row['action_object'] + " " + verbs[row['action_verb']]
+                    else:
+                        value = row['action_verb'] + " " + row['action_object']
+
                     d[key].append(value)
                 new_map[role] = d
         return new_map
@@ -175,7 +210,12 @@ class QueryGraph:
                     else:
                         key = row['benefit_verb'] + " " + row['benefit_object']
 
-                    value = row['action_verb'] + " " + row['action_object'] + " as " + role
+                    value = ""
+                    if row['action_verb'] in verbs:
+                        value = row['action_object'] + " " + verbs[row['action_verb']] + " as " + role
+                    else:
+                        value = row['action_verb'] + " " + row['action_object'] + " as " + role
+
                     container[key].append(value)
 
             new_map = {"null": container}
