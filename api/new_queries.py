@@ -112,9 +112,6 @@ class QueryGraph:
 
                     d[row['action_verb'] + ' operations conducted'].append(value)
                 new_map[role] = d
-        #Sort roles by the number of goals. Recreate new_map with the new role order
-        keys = sorted(new_map, key = lambda k: len(new_map[k]), reverse=True)
-        new_map = {key: new_map[key] for key in keys}
         return new_map
     
     def create_heuristic2(role_action_map):
@@ -134,9 +131,6 @@ class QueryGraph:
 
                     d[row['action_object'] + ' operations done'].append(value)
                 new_map[role] = d
-        #Sort roles by the number of goals. Recreate new_map with the new role order
-        keys = sorted(new_map, key = lambda k: len(new_map[k]), reverse=True)
-        new_map = {key: new_map[key] for key in keys}
         return new_map
 
     def create_heuristic3(role_action_map):
@@ -197,7 +191,8 @@ class QueryGraph:
                         value = row['action_verb'] + " " + row['action_object']
 
                     d[key].append(value)
-                new_map[role] = d
+                if len(d) != 0: #Add the role dictionary iff it isn't empty
+                    new_map[role] = d
         return new_map
         
     def create_heuristic5(role_actions_benefits_map):
@@ -265,5 +260,10 @@ class QueryGraph:
                 rslt = QueryGraph.create_heuristic4(data)
             else:
                 rslt = QueryGraph.create_heuristic5(data)
+
+        
+        #Sort roles by the number of goals. Recreate new_map with the new role order
+        keys = sorted(rslt, key = lambda k: len(rslt[k]), reverse=True)
+        rslt = {key: rslt[key] for key in keys}
 
         return json.dumps(QueryGraph.json_formatter(rslt))
