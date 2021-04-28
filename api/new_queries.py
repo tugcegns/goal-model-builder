@@ -112,6 +112,9 @@ class QueryGraph:
 
                 d[row['action_verb'] + ' operations conducted'].append(value)
             new_map[role] = d
+        #Sort roles by the number of goals. Recreate new_map with the new role order
+        keys = sorted(new_map, key = lambda k: len(new_map[k]), reverse=True)
+        new_map = {key: new_map[key] for key in keys}
         return new_map
     
     def create_heuristic2(role_action_map):
@@ -131,6 +134,9 @@ class QueryGraph:
 
                     d[row['action_object'] + ' operations done'].append(value)
                 new_map[role] = d
+        #Sort roles by the number of goals. Recreate new_map with the new role order
+        keys = sorted(new_map, key = lambda k: len(new_map[k]), reverse=True)
+        new_map = {key: new_map[key] for key in keys}
         return new_map
 
     def create_heuristic3(role_action_map):
