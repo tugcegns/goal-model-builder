@@ -143,7 +143,7 @@ class QueryGraph:
 
                     value = ""
                     if row['action_verb'] in verbs:
-                        value = row['action_object'] + " " + verbs[row['action_verb']] + " as " + role
+                        value = row['action_object'] + " " + verbs[row['action_verb']] + " by " + role
                     else:
                         value = " ".join(row.values()) + " as " + role
 
@@ -213,7 +213,7 @@ class QueryGraph:
 
                     value = ""
                     if row['action_verb'] in verbs:
-                        value = row['action_object'] + " " + verbs[row['action_verb']] + " as " + role
+                        value = row['action_object'] + " " + verbs[row['action_verb']] + " by " + role
                     else:
                         value = row['action_verb'] + " " + row['action_object'] + " as " + role
 
