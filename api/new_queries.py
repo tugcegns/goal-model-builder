@@ -110,8 +110,8 @@ class QueryGraph:
                     else:
                         value = " ".join(row.values())
 
-                d[row['action_verb'] + ' operations conducted'].append(value)
-            new_map[role] = d
+                    d[row['action_verb'] + ' operations conducted'].append(value)
+                new_map[role] = d
         #Sort roles by the number of goals. Recreate new_map with the new role order
         keys = sorted(new_map, key = lambda k: len(new_map[k]), reverse=True)
         new_map = {key: new_map[key] for key in keys}
