@@ -27,6 +27,26 @@ class SideBar extends React.Component{
             )
         })
 
+        const heuristics = ["h1", "h2", "h3", "h4", "h5"]
+        const {selectedHeuristic} = this.props
+
+        const ps = heuristics.map(heuristic => {
+            if (heuristic === selectedHeuristic || selectedHeuristic==="Hello")
+            {
+                return ""
+            }
+            else
+            {
+                return (
+                    <Button variant="info"
+                            style={{marginLeft: "2px"}}
+                            onClick={() => this.props.handleHeuristicClick(heuristic)}>
+                                {heuristic}
+                    </Button>)
+            }  
+        })
+
+
         const { getGraphScale, setGraphScale} = this.props
         return(
             <div style={{
@@ -49,6 +69,12 @@ class SideBar extends React.Component{
                     Zoom
                     <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() + 0.1)}>In</Button>
                     <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() - 0.1)}>Out</Button>
+                </div>
+                <div>
+                    {this.props.selectedHeuristic}
+                </div>
+                <div>
+                    {ps}
                 </div>
             </div>
         );

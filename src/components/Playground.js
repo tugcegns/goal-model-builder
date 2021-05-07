@@ -169,11 +169,6 @@ class Playground extends React.Component{
       this.props.handleToolClick(null);      
     });
 
-    
-    this.offsetX = 150; //PARAMETER: space between role containers
-    this.offsetY = 150;
-    this.maxSize = 0;
-
     this.CustomRoleElement = dia.Element.define('node.role', {
       attrs: {        
         r: { //goal container
@@ -600,6 +595,11 @@ class Playground extends React.Component{
   }
 
   createGraph = uploadedObject => {
+    
+    this.offsetX = 150; //PARAMETER: space between role containers
+    this.offsetY = 150;
+    this.maxSize = 0;
+    this.graph.clear();
         /*
 
         var element = new this.CustomRoleElement();

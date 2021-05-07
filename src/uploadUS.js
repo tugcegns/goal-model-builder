@@ -35,7 +35,7 @@ class ReactUSUpload extends React.Component {
 
     this.fileUpload(this.state.file).then((response) => {
         if (response) {
-          this.props.history.push({pathname: "/playground", goalModel: response.data})
+          this.props.history.push({pathname: "/playground", goalModel: response.data, selectedHeuristic: this.state.value, file: this.state.file})
           return true
         }
     });
@@ -186,7 +186,6 @@ class ReactUSUpload extends React.Component {
 }
 
 function CreateModelButton(props) {
-  const history = useHistory()
   const handleClick = useCallback(() => 
     {
       props.attemptFormSubmit()

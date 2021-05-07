@@ -5,7 +5,7 @@ import SideBar from "./components/SideBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col } from "react-bootstrap";
 import Playground from './components/Playground';
-
+import axios, { post } from "axios";
 
 class MainPage extends React.Component{
     constructor(props){
@@ -14,15 +14,44 @@ class MainPage extends React.Component{
             uploadedObject: {},
             jsonExportClicked: false,
             selectedTool: null,
+            file: null,
+            selectedHeuristic: "No",
             graphScale: 1
         }
     }
-    
+
+    fileUpload = (heuristic, e) => {
+        const url = "http://localhost:5000/upload";
+        const formData = new FormData();
+        formData.append("file", this.state.file);
+        formData.append("value", heuristic);
+        const config = {
+          headers: {
+            "content-type": "application/json",
+          },
+        };
+        return post(url, formData, config);
+    }
+
+    handleHeuristicClick = (heuristic) => 
+    {
+        this.fileUpload(heuristic).then((response) => {
+            if (response) {
+                this.setState({
+                    uploadedObject: response.data,
+                    selectedHeuristic: heuristic
+                })
+            }
+        });
+    }
+
     componentWillMount() {
         debugger
         //const { data } = 
         this.setState({
-             uploadedObject: this.props.location.goalModel
+             uploadedObject: this.props.location.goalModel,
+             selectedHeuristic: this.props.location.selectedHeuristic || "Hello",
+             file: this.props.location.file
         })
         console.log("dataaa:", this.state.uploadedObject)
     }
@@ -74,7 +103,11 @@ class MainPage extends React.Component{
                                  handleToolClick={this.handleToolClick}
                                  selectedTool={selectedTool}
                                  setGraphScale={this.setGraphScale}
-                                 getGraphScale={this.getGraphScale} />
+                                 getGraphScale={this.getGraphScale}
+                                 
+                                 selectedHeuristic={this.state.selectedHeuristic}
+                                 handleHeuristicClick={this.handleHeuristicClick}
+                                 />
                     </Col>
                     <Col md="10" style={{padding: "0", height: "100%", overflow: "scroll"}}>
                         <Playground uploadedObject={uploadedObject} 
@@ -84,7 +117,8 @@ class MainPage extends React.Component{
                                     selectedTool={selectedTool}
                                     handleToolClick={this.handleToolClick}
                                     handleJSONExport={this.handleJSONExport}
-                                    getGraphScale={this.getGraphScale}/>
+                                    getGraphScale={this.getGraphScale}
+                                    selectedHeuristic={this.state.selectedHeuristic}/>
                     </Col>
                 </Row>
                 
