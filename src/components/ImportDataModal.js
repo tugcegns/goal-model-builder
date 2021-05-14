@@ -24,7 +24,7 @@ class ImportDataModal extends React.Component{
         const { fileInputLabel } = this.state;
         return(
             <div>
-                <div className="text-center mt-4">
+                <div>
                     <Button variant="info" onClick={this.showModalHandler}> Import Data </Button>
                 </div>
                 <FormModal  show={this.state.showModal} 

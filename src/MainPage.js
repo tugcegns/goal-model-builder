@@ -96,7 +96,7 @@ class MainPage extends React.Component{
         const { uploadedObject, jsonExportClicked, selectedTool } = this.state;
         return(
             <div style={{overflow: "hidden", width:"100%", height:"100%"}}>
-                <NavigationBar handleJSONExport={this.handleJSONExport} page="playground"/>
+                <NavigationBar page="playground"/>
                 <Row style={{overflow: "hidden", width:"100%", height:"90vh", margin: "0"}}>
                     <Col md="2" style={{overflow: "hidden", height: "100%", paddingLeft: "0"}}>
                         <SideBar setUploadedObject={this.setUploadedObject}
@@ -107,6 +107,7 @@ class MainPage extends React.Component{
                                  
                                  selectedHeuristic={this.state.selectedHeuristic}
                                  handleHeuristicClick={this.handleHeuristicClick}
+                                 handleJSONExport={this.handleJSONExport}
                                  />
                     </Col>
                     <Col md="10" style={{padding: "0", height: "100%", overflow: "scroll"}}>

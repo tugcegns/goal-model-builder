@@ -2,7 +2,6 @@ import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav } from "react-bootstrap";
-import ExportDropdown from './ExportDropdown';
 
 class NavigationBar extends React.Component{
     
@@ -24,13 +23,6 @@ class NavigationBar extends React.Component{
                             App
                         </Nav.Link>
                     </Nav>
-                    {
-                        page === "playground" 
-                        &&
-                        <Nav className="ml-auto">
-                            <ExportDropdown handleJSONExport={this.props.handleJSONExport}/>
-                        </Nav>
-                    }
                     </Navbar.Collapse>
             </Navbar>
         );
