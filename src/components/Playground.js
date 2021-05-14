@@ -212,6 +212,9 @@ class Playground extends React.Component{
       }]
     })
 
+    shapes.node = {};
+    shapes.node.role = this.CustomRoleElement
+
     /*
     #
     #For future reference 
@@ -254,6 +257,8 @@ class Playground extends React.Component{
         selector: 'outline'
       }]
     });
+
+    shapes.node.goal = this.CustomGoalElement
     /*
     this.CustomRole = dia.Element.define('node.role', {
         attrs: {
@@ -365,9 +370,6 @@ class Playground extends React.Component{
         }
       ]
     });
-
-    shapes.node = {};
-    shapes.node.role = this.CustomRole;
 
     document.addEventListener("keydown", this.onKeyDown, false);
 
