@@ -6,6 +6,7 @@ import { Button, Tabs, Tab } from "react-bootstrap";
 import  htmlToImage from 'html-to-image';
 import  download  from 'downloadjs';
 import ImportDataModal from "./ImportDataModal";
+import SwitchHeuristicButton from "./SwitchHeuristicButton";
 
 const boxStyle = {borderTop: '2px solid #a1a1a1', textAlign: 'center', padding: '8%'}
 
@@ -51,24 +52,7 @@ class SideBar extends React.Component{
             )
         })
 
-        const heuristics = ["h1", "h2", "h3", "h4", "h5"]
-        const {selectedHeuristic} = this.props
-
-        const ps = heuristics.map(heuristic => {
-            if (heuristic === selectedHeuristic) {return ""}
-            else
-            {
-                return (
-                    <Button variant="info"
-                            style={{marginLeft: "2px"}}
-                            onClick={() => this.props.handleHeuristicClick(heuristic)}>
-                                {heuristic}
-                    </Button>)
-            }  
-        })
-
-
-        const { getGraphScale, setGraphScale} = this.props
+        const { getGraphScale, setGraphScale, selectedHeuristic } = this.props
         return(
             <div style={{
                 width: '100%',
@@ -95,7 +79,7 @@ class SideBar extends React.Component{
                             <Button variant="info" onClick={this.handlePNGExport}> as JPEG </Button>
                             <Button variant="info" onClick={(e) => this.props.handleJSONExport(true)}> as JSON </Button>
                         </div>
-                        {selectedHeuristic==="Hello" || <div style={boxStyle}>{ps}</div>}
+                        {selectedHeuristic==="Hello" || <div style={boxStyle}><SwitchHeuristicButton selectedHeuristic={selectedHeuristic} handleHeuristicClick={this.props.handleHeuristicClick}/></div>}
                     </Tab>
                 </Tabs>
                 <div style={boxStyle}>
