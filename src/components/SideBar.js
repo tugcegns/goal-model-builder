@@ -7,6 +7,7 @@ import  htmlToImage from 'html-to-image';
 import  download  from 'downloadjs';
 import ImportDataModal from "./ImportDataModal";
 import SwitchHeuristicButton from "./SwitchHeuristicButton";
+import Chronometer from "./Chronometer"
 
 const boxStyle = {borderTop: '2px solid #a1a1a1', textAlign: 'center', padding: '8%'}
 
@@ -59,11 +60,10 @@ class SideBar extends React.Component{
                 backgroundColor: '#e1e1e1',
                 paddingTop: '20px',
                 height: '100%',
-                overflowY: 'auto',
                 boxShadow: '4px 2px 5px 0px #a1a1a1',
-                paddingBottom: '150px'
+                position:'relative',
+                overflowY: 'auto',
             }}>
-
                 <Tabs defaultActiveKey="toolbox" id="uncontrolled-tab-exam">
                     <Tab eventKey="toolbox" title="Toolbox">
                         {SideBarBoxDivs}
@@ -86,6 +86,12 @@ class SideBar extends React.Component{
                     Zoom
                     <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() + 0.1)}>In</Button>
                     <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() - 0.1)}>Out</Button>
+                </div>
+
+                <div style={{height:'20%', position:'absolute', bottom:0, width: '100%'}}>
+                    <div style={boxStyle}>
+                        <Chronometer/>
+                    </div>
                 </div>
             </div>
         );
