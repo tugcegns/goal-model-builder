@@ -68,16 +68,16 @@ class SideBar extends React.Component{
                     <Tab eventKey="toolbox" title="Toolbox">
                         {SideBarBoxDivs}
                     </Tab>
-                    <Tab eventKey="profile" title="Profile">
+                    <Tab eventKey="data" title="Data">
                         
                         <div style={boxStyle}>
                             <ImportDataModal setUploadedObject={this.props.setUploadedObject} /> 
                         </div>
                         <div style={boxStyle}>
-                            Export
-                            <Button variant="info" onClick={this.handleJPEGExport}> as PNG </Button>
-                            <Button variant="info" onClick={this.handlePNGExport}> as JPEG </Button>
-                            <Button variant="info" onClick={(e) => this.props.handleJSONExport(true)}> as JSON </Button>
+                            Export as
+                            <Button variant="info" style={{marginLeft: "2px"}} onClick={this.handleJPEGExport}>PNG </Button>
+                            <Button variant="info" style={{marginLeft: "2px"}} onClick={this.handlePNGExport}>JPEG </Button>
+                            <Button variant="info" style={{marginLeft: "2px"}} onClick={(e) => this.props.handleJSONExport(true)}>JSON </Button>
                         </div>
                         {selectedHeuristic==="Hello" || <div style={boxStyle}><SwitchHeuristicButton selectedHeuristic={selectedHeuristic} handleHeuristicClick={this.props.handleHeuristicClick}/></div>}
                     </Tab>
@@ -88,7 +88,7 @@ class SideBar extends React.Component{
                     <Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() - 0.1)}>Out</Button>
                 </div>
 
-                <div style={{height:'20%', position:'absolute', bottom:0, width: '100%'}}>
+                <div style={{height:'15%', position:'absolute', bottom:0, width: '100%'}}>
                     <div style={boxStyle}>
                         <Chronometer/>
                     </div>
