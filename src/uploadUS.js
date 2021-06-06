@@ -146,7 +146,7 @@ class ReactUSUpload extends React.Component {
             </Col>            
           </Row>
           <Row>
-            <Col md="6">
+            <Col md="12">
               {HeuristicChoiceComponents[4]}
             </Col>
           </Row>
