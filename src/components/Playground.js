@@ -335,6 +335,8 @@ class Playground extends React.Component{
         }]
     });
 
+    shapes.AndRefinementLink = this.CustomLinkAnd
+
     this.CustomLinkOr = dia.Link.define('OrRefinementLink', {
       attrs: {
         line: {
@@ -370,6 +372,8 @@ class Playground extends React.Component{
         }
       ]
     });
+
+    shapes.OrRefinementLink = this.CustomLinkOr
 
     document.addEventListener("keydown", this.onKeyDown, false);
 
