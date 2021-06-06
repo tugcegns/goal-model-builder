@@ -33,6 +33,14 @@ class SwitchHeuristicButton extends React.Component{
             if (heuristic === currentHeuristic) {return ""}
             else
             {
+                var text = ""
+                if (heuristic == "h1") text = "H1: Grouped Action Verbs"
+                else if (heuristic == "h2") text = "H2: Grouped Action Object"
+                else if (heuristic == "h3") text = "H3: Without Role Boundary"
+                else if (heuristic == "h4") text = "H4: Grouped Benefit"
+                else if (heuristic == "h5") text = "H5: Benefit Without Role Boundary"
+                else text = "ERROR: heuristic is not defined."
+
                 return (
                     <div
                         onClick={() => this.setState({selectedHeuristic: heuristic})}
@@ -41,12 +49,12 @@ class SwitchHeuristicButton extends React.Component{
                         <input
                             type="radio"
                             name="heu"
-                            value={heuristic}
+                            value={heuristic}    
                             checked={selectedHeuristic === heuristic}        
                             readOnly={true}
                             style={{marginRight: "5px"}}
                         />
-                        {heuristic}
+                        {text}
                     </div>
                     )
             }  
@@ -59,6 +67,7 @@ class SwitchHeuristicButton extends React.Component{
                 </div>
                 <Modal
                     show={this.state.showModal}
+                    onHide={this.hideModalHandler}
                     size="md"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
