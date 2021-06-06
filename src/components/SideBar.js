@@ -74,7 +74,7 @@ class SideBar extends React.Component{
                             <ImportDataModal setUploadedObject={this.props.setUploadedObject} /> 
                         </div>
                         <div style={boxStyle}>
-                            Export as
+                            Export as<br></br>
                             <Button variant="info" style={{marginLeft: "2px"}} onClick={this.handleJPEGExport}>PNG </Button>
                             <Button variant="info" style={{marginLeft: "2px"}} onClick={this.handlePNGExport}>JPEG </Button>
                             <Button variant="info" style={{marginLeft: "2px"}} onClick={(e) => this.props.handleJSONExport(true)}>JSON </Button>
