@@ -520,7 +520,7 @@ class Playground extends React.Component{
     element.attr({
       label: { //textWrap element can be used instead. textWrap automatically places new line element
         text: this.processLabel(label, 'node.goal'),
-        'font-weight': 'bold',
+        //'font-weight': 'bold',  //PARAMETER: make goal texts bold
       },
       r: {
           refRx: 0.2,
