@@ -7,6 +7,9 @@ import { each } from 'underscore';
 import LabelModal from '../components/LabelModal';
 
 
+const PAPER_WIDTH = 3000
+const PAPER_HEIGHT = 1500
+
 class Playground extends React.Component{
 
   constructor(props) {
@@ -23,8 +26,8 @@ class Playground extends React.Component{
     this.paper = new dia.Paper({ // Paper oluşturuyoruz çalışma sheeti gibi 
       el: ReactDOM.findDOMNode(this.refs.playground), //html' e koyarken hangi elemente atadığımızı belirtiyoruz.
         cellViewNamespace: shapes,
-        width: 3000,
-        height: 5000,
+        width: PAPER_WIDTH,
+        height: PAPER_HEIGHT,
         model: this.graph // yukarda oluşturduğumuz graphı buna atıyoruz.
     });
         
@@ -455,13 +458,13 @@ class Playground extends React.Component{
       r: {
           refWidth: '100%',
           refHeight: '100%',
-          refRx: 0.1,
+          refRx: 0.1, //PARAMETER: how round the goal container will be?
           refRy: 0.1,
       },
       label: {
           ref:'r',
           refX: '3%', //PARAMETER: adjust the offset of the role circle (and the label)
-          refY: '3%',
+          refY: '3%', // -> Heuristic sample images were created with refX and refY set to 15%.
           fontSize: this.getRoleLabelFontSize(label),
           text: isBoundary?"":this.processLabel(label, 'node.role'),
       },
@@ -767,7 +770,7 @@ class Playground extends React.Component{
     }
     const graphScale = this.props.getGraphScale()
     this.paper.scale(graphScale, graphScale)
-    this.paper.setDimensions(3000 * graphScale, 5000 * graphScale)
+    this.paper.setDimensions(PAPER_WIDTH * graphScale, PAPER_HEIGHT * graphScale)
   }
 
   processLabel = (label, elementType) => {
