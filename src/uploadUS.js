@@ -229,6 +229,7 @@ import h1 from "./images/h1.PNG";
 import h2 from "./images/h2.PNG";
 import h3 from "./images/h3.PNG";
 import h4 from "./images/h4.PNG";
+import h5 from "./images/h5.PNG";
 
 const HeuristicChoiceData = [
   {
@@ -263,7 +264,7 @@ const HeuristicChoiceData = [
     alt: "Benefit",
     value: "h5",
     text: "Benefit Without Role Boundary",
-    src: h4,
+    src: h5,
     imageShape: {height:250}
   }
 ]

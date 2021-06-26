@@ -1,0 +1,3 @@
+As a user, I want to view possible destinations.
+As a user, I want to view restaurant score.
+As a user, I want to view tourist attractions neatby.

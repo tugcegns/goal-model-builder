@@ -1,0 +1,2 @@
+As a user, I want to score tourist attraction.
+As a user, I want to view tourist attraction.

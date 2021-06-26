@@ -1,0 +1,3 @@
+As a executive, I want to access company's data.
+As a employee, I want to view company's data.
+As a employee from the HR department, I want to modify company's data.
