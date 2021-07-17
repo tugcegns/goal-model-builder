@@ -9,6 +9,11 @@ import FormModal from './FormModel';
 class SwitchHeuristicButton extends React.Component{
     constructor(props) {
         super(props);
+        /**
+         * @property {boolean} showModel whether the modal heuristic selection is shown
+         * @property {string} currentHeuristic heuristic used to create the model currently drawn on the paper
+         * @property {string} selectedHeuristic heuristic chosen in the heuristic selection modal
+         */
         this.state = {
             showModal : false,
             currentHeuristic : this.props.selectedHeuristic,    // heuristic with which the current paper is filled

@@ -10,6 +10,9 @@ import FormModal from './FormModel';
 class ImportDataModal extends React.Component{
     constructor(props) {
         super(props);
+        /**
+         * @property {boolean} showModel whether the import data modal is shown
+         */
         this.state = {
             showModal : false
         }

@@ -13,6 +13,14 @@ import axios, { post } from "axios";
 class MainPage extends React.Component{
     constructor(props){
         super(props);
+        /**
+         * @property {*} uploadedObject data representing the model to be drawn
+         * @property {boolean} jsonExportClicked whether the export JSON button is clicked
+         * @property {string} selectedTool tool selected in the sidebar 
+         * @property {*} file selected file. None if the playground page is opened without using a heuristic.
+         * @property {string} selectedHeuristic heuristic used to create the model currently drawn on the paper
+         * @property {float} graphScale scale of the graph. Determines the zoom
+         */
         this.state = {
             uploadedObject: {},
             jsonExportClicked: false,
@@ -103,7 +111,7 @@ class MainPage extends React.Component{
 
     /**
      * Downloads the JSON data representing the current model
-     * @param {*} flag 
+     * @param {boolean} flag whether the export JSON button is clicked 
      */
     handleJSONExport = flag => {
         this.setState({ jsonExportClicked: flag })
@@ -125,7 +133,7 @@ class MainPage extends React.Component{
     /**
      * Downloads the current model on the paper in JSON format.
      * This JSON file can be used to import the model back.
-     * @param {*} graphObject 
+     * @param {*} graphObject
      */
     exportJSON = graphObject => {
         this.download("goal-model.json", JSON.stringify(graphObject));

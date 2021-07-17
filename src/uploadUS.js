@@ -12,6 +12,14 @@ import axios, { post } from "axios";
 class ReactUSUpload extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * @property {file} file file uploaded by the user
+     * @property {string} fileInputLabel placeholder string for the file upload button
+     * @property {string} value heuristic value ('h1', 'h2'...)
+     * @property {*} uploadedObject data representing the model to be drawn
+     * @property {boolean} showWarning whether the warning modal is shown
+     * @property {string} warningText text shown when the warning modal is visible 
+     */
     this.state = {
       file: null,
       fileInputLabel: 'Select Your Goal Model Data',
@@ -70,7 +78,7 @@ class ReactUSUpload extends React.Component {
 
   /**
    * Call when a heuristic is selected
-   * @param {string} newValue Heuristic id ('h1', 'h2'...)
+   * @param {string} newValue Heuristic value ('h1', 'h2'...)
    */
   setValue(newValue) {
     this.setState({value: newValue});    
@@ -100,8 +108,7 @@ class ReactUSUpload extends React.Component {
    * @param {Object} itemData Heuristic choice data item 
    * @returns Heuristic choice element
    */
-  getHeuristicChoiceElement(itemData) {  
-    console.log(itemData.value)
+  getHeuristicChoiceElement(itemData) {
     return (<div
       onClick = {() => this.setValue(itemData.value)}
       style   = {{cursor:'pointer'}}>
