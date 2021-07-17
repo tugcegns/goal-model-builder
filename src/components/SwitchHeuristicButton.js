@@ -17,9 +17,9 @@ class SwitchHeuristicButton extends React.Component{
     }
 
     /**
-     * Updates the heuristic used to create the last model.
+     * Updates the heuristic used to create the last modal.
      * This heuristic is hidden when the modal is shown.
-     * @param {*} props 
+     * @param {{selectedHeuristic:string}} props 
      */
     componentWillReceiveProps(props) {
         this.setState({currentHeuristic : this.props.selectedHeuristic})
@@ -34,7 +34,7 @@ class SwitchHeuristicButton extends React.Component{
     }
     
     /**
-     * Hides switch heuristics model
+     * Hides switch heuristics modal
      * @param {*} event 
      */
     hideModalHandler = (event) =>{

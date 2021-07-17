@@ -17,7 +17,7 @@ const boxStyle = {borderTop: '2px solid #a1a1a1', textAlign: 'center', padding: 
 class SideBar extends React.Component{
 
     /**
-     * Downloads the current model in Jpeg format
+     * Downloads the current model in jpeg format
      */
     handleJPEGExport = () => {
         htmlToImage.toJpeg(document.getElementById('playground'), 
@@ -35,7 +35,7 @@ class SideBar extends React.Component{
     }
     
     /**
-     * Downloads the current model in Png format
+     * Downloads the current model in png format
      */
     handlePNGExport = () => {
         htmlToImage.toPng(document.getElementById('playground'))

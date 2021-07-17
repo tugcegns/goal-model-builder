@@ -70,7 +70,7 @@ class ReactUSUpload extends React.Component {
 
   /**
    * Call when a heuristic is selected
-   * @param {string} newValue Heuristic id ('heu1', 'heu2'...)
+   * @param {string} newValue Heuristic id ('h1', 'h2'...)
    */
   setValue(newValue) {
     this.setState({value: newValue});    
@@ -97,7 +97,7 @@ class ReactUSUpload extends React.Component {
 
   /**
    * Get the heuristic choice element.
-   * @param {} itemData Heuristic choice data item 
+   * @param {Object} itemData Heuristic choice data item 
    * @returns Heuristic choice element
    */
   getHeuristicChoiceElement(itemData) {  

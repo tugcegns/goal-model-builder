@@ -94,7 +94,7 @@ class MainPage extends React.Component{
     }
 
     /**
-     * Get the current graph scale. Used to implement zoom in/out 
+     * Gets the current graph scale. Used to implement zoom in/out 
      * @returns Current graph scale
      */
     getGraphScale = () => {
@@ -102,7 +102,7 @@ class MainPage extends React.Component{
     }
 
     /**
-     * Download the JSON data representing the current model
+     * Downloads the JSON data representing the current model
      * @param {*} flag 
      */
     handleJSONExport = flag => {
@@ -122,7 +122,11 @@ class MainPage extends React.Component{
         document.body.removeChild(element);
     }
 
-    
+    /**
+     * Downloads the current model on the paper in JSON format.
+     * This JSON file can be used to import the model back.
+     * @param {*} graphObject 
+     */
     exportJSON = graphObject => {
         this.download("goal-model.json", JSON.stringify(graphObject));
     }
