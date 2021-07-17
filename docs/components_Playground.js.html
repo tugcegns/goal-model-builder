@@ -1,4 +1,32 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Playground.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Playground.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -64,7 +92,7 @@ class Playground extends React.Component{
         
     this.graph.on('change:size', (cell, newPosition, opt) => {
       if (opt.skipParentHandler) return;
-        if (cell.get('embeds') && cell.get('embeds').length) {
+        if (cell.get('embeds') &amp;&amp; cell.get('embeds').length) {
           cell.set('originalSize', cell.get('size'));
         }
     });
@@ -73,7 +101,7 @@ class Playground extends React.Component{
     this.graph.on('change:position', (cell, newPosition, opt) => {
       if (opt.skipParentHandler) return;
       
-      if (cell.get('embeds') && cell.get('embeds').length) {
+      if (cell.get('embeds') &amp;&amp; cell.get('embeds').length) {
         // If we're manipulating a parent element, let's store
         // it's original position to a special property so that
         // we can shrink the parent element back while manipulating
@@ -101,8 +129,8 @@ class Playground extends React.Component{
         var elementView = this.paper.findViewByModel(child);
         var childBbox = elementView.getBBox();                
     
-        if (childBbox.x/graphScale < newX) { newX = childBbox.x/graphScale; }
-        if (childBbox.y/graphScale < newY) { newY = childBbox.y/graphScale; }
+        if (childBbox.x/graphScale &lt; newX) { newX = childBbox.x/graphScale; }
+        if (childBbox.y/graphScale &lt; newY) { newY = childBbox.y/graphScale; }
         if (childBbox.corner().x/graphScale > newCornerX) { newCornerX = childBbox.corner().x/graphScale; }
         if (childBbox.corner().y/graphScale > newCornerY) { newCornerY = childBbox.corner().y/graphScale; }
       };
@@ -124,7 +152,7 @@ class Playground extends React.Component{
       //console.log(cellView.findBySelector('c')[0]['r'].baseVal.value)
       this.resetSelectedCell();
       const { selectedTool } = this.props;
-      if(selectedTool !== null && selectedTool !== 'and' && selectedTool !== 'or') return;
+      if(selectedTool !== null &amp;&amp; selectedTool !== 'and' &amp;&amp; selectedTool !== 'or') return;
 
       var currentCell = cellView.model;
 
@@ -141,12 +169,12 @@ class Playground extends React.Component{
 
       var currentElement = elementView.model;
 
-      if (selectedTool === "goal" && currentElement.get('type') == 'node.role') {
+      if (selectedTool === "goal" &amp;&amp; currentElement.get('type') == 'node.role') {
         const goal = this.createGoal("Goal", eventX, eventY);
         currentElement.embed(goal);
         this.graph.addCell(goal);
         this.props.handleToolClick(null);
-      } else if ((selectedTool === 'and' || selectedTool === 'or') && currentElement.get('type') === 'node.goal') {
+      } else if ((selectedTool === 'and' || selectedTool === 'or') &amp;&amp; currentElement.get('type') === 'node.goal') {
         var { source } = this.state;
 
         if (source) {
@@ -190,7 +218,7 @@ class Playground extends React.Component{
       this.resetSelectedCell();
       const { selectedTool } = this.props;
 
-      if (selectedTool !== "role" && selectedTool !== "boundary" ) return;
+      if (selectedTool !== "role" &amp;&amp; selectedTool !== "boundary" ) return;
       this.createRole("Actor", 0, {x: eventX, y: eventY}, selectedTool == 'boundary');
       this.props.handleToolClick(null);      
     });
@@ -354,7 +382,7 @@ class Playground extends React.Component{
       return "";
     }.bind(this);
 
-    if(this.props.uploadedObject !== undefined && this.props.uploadedObject.cells) {
+    if(this.props.uploadedObject !== undefined &amp;&amp; this.props.uploadedObject.cells) {
       this.graph.fromJSON(this.props.uploadedObject);
       this.props.setUploadedObject(undefined);
     } else if (this.props.uploadedObject !== undefined) {
@@ -524,7 +552,7 @@ class Playground extends React.Component{
     let coords = [];
 
     let angle = startAngle;
-    for(var i = 0; i < n; i++){
+    for(var i = 0; i &lt; n; i++){
       const q = angle * (pi / 180);
       const x = r * Math.cos(q);
       const y = r * Math.sin(q);
@@ -555,7 +583,7 @@ class Playground extends React.Component{
       let nodes = uploadedObject[key];
       const childrenCount = this.countChildren(nodes);
       var isBoundary = false;
-      //if (nodes.length > 0 && nodes[0] == "null") {
+      //if (nodes.length > 0 &amp;&amp; nodes[0] == "null") {
       if (key === "null") {
         isBoundary = true;
       }
@@ -574,7 +602,7 @@ class Playground extends React.Component{
         var numberOfSubgoals = 0
         var hasSubgoals = false
         var children = null
-        if( node.children && node.children.length != 0 ) {
+        if( node.children &amp;&amp; node.children.length != 0 ) {
           hasSubgoals = true
           children = node.children[0]
           numberOfSubgoals = children.label ? children.label.length : 0;
@@ -654,7 +682,7 @@ class Playground extends React.Component{
       exportJSON(this.graph.toJSON()); // convert the graph to JSON and download it
       handleJSONExport(false);  // set jsonExportClicked to false
     }
-    if(uploadedObject !== undefined && uploadedObject.cells) {
+    if(uploadedObject !== undefined &amp;&amp; uploadedObject.cells) {
       this.graph.fromJSON(uploadedObject);
       setUploadedObject(undefined);
     }
@@ -691,7 +719,7 @@ class Playground extends React.Component{
       //label is too short. Since we are drawing the goal container by
       //looking at the size of the label, container becomes too small.
       //Thus, we place white space around the label.
-      if (l < 6) return " ".repeat(l)+label+" ".repeat(l)
+      if (l &lt; 6) return " ".repeat(l)+label+" ".repeat(l)
       //label is not too small, we replace every two white space with a new line
       //https://levelup.gitconnected.com/advanced-regex-find-and-replace-every-second-instance-of-a-character-c7d97a31516a
       else return label.replace(/( [^ ]*) /g,'$1\n')
@@ -718,7 +746,7 @@ class Playground extends React.Component{
         longestWordLength = word.length
       }
     }
-    return 28 - labelWords.length - (longestWordLength<6?0:longestWordLength)
+    return 28 - labelWords.length - (longestWordLength&lt;6?0:longestWordLength)
   }
 
   /**
@@ -748,7 +776,7 @@ class Playground extends React.Component{
   onKeyDown = event => {
     var keyId = event.keyCode;
     const { selectedCell } = this.state;
-    if(keyId === 8 && selectedCell){
+    if(keyId === 8 &amp;&amp; selectedCell){
       this.graph.removeCells([selectedCell]);
       this.setState({ selectedCell: null })
     }
@@ -756,14 +784,36 @@ class Playground extends React.Component{
 
   render(){
     return(
-      <div ref="playground" 
+      &lt;div ref="playground" 
           id="playground">
-          <LabelModal show={this.state.showLabelModal} 
+          &lt;LabelModal show={this.state.showLabelModal} 
               onHide={() => {this.setState({showLabelModal:false})}}
               label={this.state.label}
               onLabelChange={this.onLabelChange}  />
-      </div>
+      &lt;/div>
     );
   }
 }
-export default Playground;
+export default Playground;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="Playground.html">Playground</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#PAPER_HEIGHT">PAPER_HEIGHT</a></li><li><a href="global.html#PAPER_WIDTH">PAPER_WIDTH</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 16:28:43 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
