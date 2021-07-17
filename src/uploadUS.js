@@ -254,6 +254,7 @@ import h5 from "./images/h5.PNG";
 
 /**
  * Data of the heuristic choice elements
+ * This data is used for creating heuristic choice elements in {@Link ReactUSUpload}
  */
 const HeuristicChoiceData = [
   {
