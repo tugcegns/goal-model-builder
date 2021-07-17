@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Modal, Button } from "react-bootstrap";
 import FormModal from './FormModel';
+import { HeuristicsData } from '../heuristics';
 
 /**
  * Button for showing the switch heuristics modal
@@ -47,37 +48,28 @@ class SwitchHeuristicButton extends React.Component{
     }
 
     render (){
-        const heuristics = ["h1", "h2", "h3", "h4", "h5"]
         const {currentHeuristic, selectedHeuristic} = this.state
 
-        const ps = heuristics.map(heuristic => {
-            if (heuristic === currentHeuristic) {return ""}
+        const ps = HeuristicsData.map(heuristicData => {
+            if (heuristicData.value === currentHeuristic) {return ""}
             else
             {
-                var text = ""
-                if (heuristic == "h1") text = "H1: Grouped Action Verbs"
-                else if (heuristic == "h2") text = "H2: Grouped Action Object"
-                else if (heuristic == "h3") text = "H3: Without Role Boundary"
-                else if (heuristic == "h4") text = "H4: Grouped Benefit"
-                else if (heuristic == "h5") text = "H5: Benefit Without Role Boundary"
-                else text = "ERROR: heuristic is not defined."
-
                 return (
                     <div
-                        onClick={() => this.setState({selectedHeuristic: heuristic})}
+                        onClick={() => this.setState({selectedHeuristic: heuristicData.value})}
                         style={{cursor: 'pointer'}}
                     >
                         <input
                             type="radio"
                             name="heu"
-                            value={heuristic}    
-                            checked={selectedHeuristic === heuristic}        
+                            value={heuristicData.value}    
+                            checked={selectedHeuristic === heuristicData.value}        
                             readOnly={true}
                             style={{marginRight: "5px"}}
                         />
-                        {text}
+                        {heuristicData.value + ": " + heuristicData.text}
                     </div>
-                    )
+                )
             }  
         })
         

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import NavigationBar from "./components/NavigationBar";
 import { Row, Col, Container, Button, Modal, Form } from "react-bootstrap";
 import axios, { post } from "axios";
+import { HeuristicsData } from "./heuristics";
 
 /**
  * User story upload page
@@ -134,8 +135,30 @@ class ReactUSUpload extends React.Component {
 }
  
   render() {
-    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => this.getHeuristicChoiceElement(item))
-    
+    var counter = 0
+    const numberOfHeuristics = HeuristicsData.length
+    const getCol = (md, component) => <Col md={md}>{component}</Col>
+    const HeuristicElements = HeuristicsData.map(item => this.getHeuristicChoiceElement(item))
+    var HeuristicRows = []
+    while (counter < numberOfHeuristics) {
+      if (counter + 2 <= numberOfHeuristics) {
+        HeuristicRows.push(
+          <Row>
+            {getCol(6, HeuristicElements[counter])}
+            {getCol(6, HeuristicElements[counter+1])}
+          </Row>)
+        counter += 2
+      }
+      else {
+        HeuristicRows.push(
+          <Row>
+            {getCol(12, HeuristicElements[counter])}
+          </Row>
+        )
+        counter += 1
+      }
+    }
+
     const { fileInputLabel } = this.state;
     return (
       <div>
@@ -177,27 +200,7 @@ class ReactUSUpload extends React.Component {
 
         <p align="center">Select a heuristic type.</p>
         <Container className="mt-5">
-          <Row>
-            <Col md="6">
-              {HeuristicChoiceComponents[0]}
-            </Col>
-            <Col md="6">
-              {HeuristicChoiceComponents[1]}
-            </Col>
-          </Row> 
-          <Row> 
-            <Col md="6">
-              {HeuristicChoiceComponents[2]}
-            </Col>
-            <Col md="6">
-              {HeuristicChoiceComponents[3]}
-            </Col>            
-          </Row>
-          <Row>
-            <Col md="12">
-              {HeuristicChoiceComponents[4]}
-            </Col>
-          </Row>
+          {HeuristicRows}
         </Container>
       </form>
       <div align="center">
@@ -245,53 +248,5 @@ function CreateModelButton(props) {
     <Button as="input" type="submit" onClick={handleClick} value="Create Model" readOnly={true}/>
   )
 }
-
-import h1 from "./images/h1.PNG";
-import h2 from "./images/h2.PNG";
-import h3 from "./images/h3.PNG";
-import h4 from "./images/h4.PNG";
-import h5 from "./images/h5.PNG";
-
-/**
- * Data of the heuristic choice elements
- * This data is used for creating heuristic choice elements in {@Link ReactUSUpload}
- */
-const HeuristicChoiceData = [
-  {
-    alt: "Role-Action",
-    value: "h1",
-    text: "Grouped Action Verbs",
-    src: h1,
-    imageShape: {height:250}
-  },
-  {
-    alt: "Role-Topic",
-    value: "h2",
-    text: "Grouped Action Object",
-    src: h2,
-    imageShape: {height:250}    
-  },
-  {
-    alt: "Role",
-    value:"h3",
-    text: "Without Role Boundary",
-    src: h3,
-    imageShape: {height:250}
-  },
-  {
-    alt: "Role-Benefit",
-    value: "h4",
-    text: "Grouped Benefit",
-    src: h4,
-    imageShape: {height:250}
-  },
-  {
-    alt: "Benefit",
-    value: "h5",
-    text: "Benefit Without Role Boundary",
-    src: h5,
-    imageShape: {height:250}
-  }
-]
 
 export default withRouter(ReactUSUpload);
