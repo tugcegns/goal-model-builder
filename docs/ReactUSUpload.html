@@ -158,7 +158,8 @@
 
 <div class="description">
     <p>Call when the &quot;Create Model&quot; submit button is pressed.
-Sends the uploaded file and the heuristic selection to the backend. Opens the /playground page if backend sends a response back.
+Sends the uploaded file and the heuristic selection to the backend.
+If a response is received, opens the /playground page with the model generated in the backend.
 Shows a warning if a heuristic is not selected or a file is not uploaded.</p>
 </div>
 
@@ -252,7 +253,7 @@ Shows a warning if a heuristic is not selected or a file is not uploaded.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line37">line 37</a>
+        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line39">line 39</a>
     </li></ul></dd>
     
 
@@ -422,7 +423,7 @@ Shows a warning if a heuristic is not selected or a file is not uploaded.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line83">line 83</a>
+        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -451,7 +452,149 @@ Shows a warning if a heuristic is not selected or a file is not uploaded.</p>
 
         
 <div class="param-desc">
-    <p>response from the backend</p>
+    <p>response from the backend which is a JSON string representing the elements to be drawn</p>
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getHeuristicChoiceElement"><span class="type-signature"></span>getHeuristicChoiceElement<span class="signature">(itemData)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get the heuristic choice element.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>itemData</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Heuristic choice data item</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line103">line 103</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Heuristic choice element</p>
 </div>
 
 
@@ -570,7 +713,7 @@ Sets the state to show the name of the selected file on the file selection form.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line62">line 62</a>
+        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line64">line 64</a>
     </li></ul></dd>
     
 
@@ -707,7 +850,7 @@ Sets the state to show the name of the selected file on the file selection form.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line73">line 73</a>
+        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -753,13 +896,13 @@ Sets the state to show the name of the selected file on the file selection form.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoice">HeuristicChoice</a></li><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:17:37 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:48:57 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

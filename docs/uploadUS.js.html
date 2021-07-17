@@ -53,11 +53,13 @@ class ReactUSUpload extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
     this.setValue = this.setValue.bind(this)
+    this.getHeuristicChoiceElement = this.getHeuristicChoiceElement.bind(this)
   }
 
   /**
    * Call when the "Create Model" submit button is pressed.
-   * Sends the uploaded file and the heuristic selection to the backend. Opens the /playground page if backend sends a response back. 
+   * Sends the uploaded file and the heuristic selection to the backend.
+   * If a response is received, opens the /playground page with the model generated in the backend. 
    * Shows a warning if a heuristic is not selected or a file is not uploaded.
    * @param {Event} e 
    * @returns True if the backend sends a response back
@@ -99,14 +101,14 @@ class ReactUSUpload extends React.Component {
    * @param {string} newValue Heuristic id ('heu1', 'heu2'...)
    */
   setValue(newValue) {
-    this.setState({value: newValue});
+    this.setState({value: newValue});    
   }
 
   /**
    * Call to send the file and the heuristic choice to the backend
    * @param {*} file 
    * @param {*} e 
-   * @returns response from the backend
+   * @returns response from the backend which is a JSON string representing the elements to be drawn
    */
   fileUpload(file, e) {
     const url = "http://localhost:5000/upload";
@@ -120,14 +122,40 @@ class ReactUSUpload extends React.Component {
     };
     return post(url, formData, config);
   }
+
+  /**
+   * Get the heuristic choice element.
+   * @param {} itemData Heuristic choice data item 
+   * @returns Heuristic choice element
+   */
+  getHeuristicChoiceElement(itemData) {  
+    console.log(itemData.value)
+    return (&lt;div
+      onClick = {() => this.setValue(itemData.value)}
+      style   = {{cursor:'pointer'}}>
+        &lt;img src={itemData.src} alt={itemData.alt} {...itemData.imageShape} />
+        &lt;p>
+          &lt;input
+            type = 'radio'
+            name = 'heu'
+            value = {itemData.value}
+            checked = {itemData.value === this.state.value}
+            readOnly = {true}
+            style = {{marginRight: "5px"}}
+          />
+          &lt;label
+            className='label-style'
+            style={{cursor: 'pointer'}}
+          >
+            {itemData.text}
+          &lt;/label>
+        &lt;/p>
+    
+    &lt;/div>) 
+}
  
   render() {
-    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => &lt;HeuristicChoice 
-      key = {item.alt}
-      {...item}
-      selectedValue={this.state.value}
-      setValue={this.setValue}
-    />)
+    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => this.getHeuristicChoiceElement(item))
     
     const { fileInputLabel } = this.state;
     return (
@@ -239,38 +267,6 @@ function CreateModelButton(props) {
   )
 }
 
-/**
- * Function to draw heuristic choice elements
- * @param {Object} props methods and values 
- * @returns Heuristic choice element
- */
-function HeuristicChoice(props) {
-  return (
-    &lt;div
-      onClick={() => props.setValue(props.value)}
-      style={{cursor: 'pointer'}}
-    >
-      &lt;img src={props.src} alt={props.alt} {...props.imageShape} />
-      &lt;p>
-        &lt;input
-          type="radio"
-          name="heu"
-          value={props.value}
-          checked={props.selectedValue === props.value}
-          readOnly={true}
-          style={{marginRight: "5px"}}
-        />
-        &lt;label
-          className="label-style"
-          style={{cursor: 'pointer'}}
-        >
-            {props.text}
-        &lt;/label>
-      &lt;/p>
-    &lt;/div>
-  )
-}
-
 import h1 from "./images/h1.PNG";
 import h2 from "./images/h2.PNG";
 import h3 from "./images/h3.PNG";
@@ -328,13 +324,13 @@ export default withRouter(ReactUSUpload);</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoice">HeuristicChoice</a></li><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:17:37 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:48:57 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

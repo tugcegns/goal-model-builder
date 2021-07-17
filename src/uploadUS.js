@@ -25,11 +25,13 @@ class ReactUSUpload extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
     this.setValue = this.setValue.bind(this)
+    this.getHeuristicChoiceElement = this.getHeuristicChoiceElement.bind(this)
   }
 
   /**
    * Call when the "Create Model" submit button is pressed.
-   * Sends the uploaded file and the heuristic selection to the backend. Opens the /playground page if backend sends a response back. 
+   * Sends the uploaded file and the heuristic selection to the backend.
+   * If a response is received, opens the /playground page with the model generated in the backend. 
    * Shows a warning if a heuristic is not selected or a file is not uploaded.
    * @param {Event} e 
    * @returns True if the backend sends a response back
@@ -71,14 +73,14 @@ class ReactUSUpload extends React.Component {
    * @param {string} newValue Heuristic id ('heu1', 'heu2'...)
    */
   setValue(newValue) {
-    this.setState({value: newValue});
+    this.setState({value: newValue});    
   }
 
   /**
    * Call to send the file and the heuristic choice to the backend
    * @param {*} file 
    * @param {*} e 
-   * @returns response from the backend
+   * @returns response from the backend which is a JSON string representing the elements to be drawn
    */
   fileUpload(file, e) {
     const url = "http://localhost:5000/upload";
@@ -92,14 +94,40 @@ class ReactUSUpload extends React.Component {
     };
     return post(url, formData, config);
   }
+
+  /**
+   * Get the heuristic choice element.
+   * @param {} itemData Heuristic choice data item 
+   * @returns Heuristic choice element
+   */
+  getHeuristicChoiceElement(itemData) {  
+    console.log(itemData.value)
+    return (<div
+      onClick = {() => this.setValue(itemData.value)}
+      style   = {{cursor:'pointer'}}>
+        <img src={itemData.src} alt={itemData.alt} {...itemData.imageShape} />
+        <p>
+          <input
+            type = 'radio'
+            name = 'heu'
+            value = {itemData.value}
+            checked = {itemData.value === this.state.value}
+            readOnly = {true}
+            style = {{marginRight: "5px"}}
+          />
+          <label
+            className='label-style'
+            style={{cursor: 'pointer'}}
+          >
+            {itemData.text}
+          </label>
+        </p>
+    
+    </div>) 
+}
  
   render() {
-    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => <HeuristicChoice 
-      key = {item.alt}
-      {...item}
-      selectedValue={this.state.value}
-      setValue={this.setValue}
-    />)
+    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => this.getHeuristicChoiceElement(item))
     
     const { fileInputLabel } = this.state;
     return (
@@ -208,38 +236,6 @@ function CreateModelButton(props) {
 
   return (
     <Button as="input" type="submit" onClick={handleClick} value="Create Model" readOnly={true}/>
-  )
-}
-
-/**
- * Function to draw heuristic choice elements
- * @param {Object} props methods and values 
- * @returns Heuristic choice element
- */
-function HeuristicChoice(props) {
-  return (
-    <div
-      onClick={() => props.setValue(props.value)}
-      style={{cursor: 'pointer'}}
-    >
-      <img src={props.src} alt={props.alt} {...props.imageShape} />
-      <p>
-        <input
-          type="radio"
-          name="heu"
-          value={props.value}
-          checked={props.selectedValue === props.value}
-          readOnly={true}
-          style={{marginRight: "5px"}}
-        />
-        <label
-          className="label-style"
-          style={{cursor: 'pointer'}}
-        >
-            {props.text}
-        </label>
-      </p>
-    </div>
   )
 }
 
