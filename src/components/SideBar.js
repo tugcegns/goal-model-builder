@@ -110,9 +110,9 @@ class SideBar extends React.Component{
 
 /**
  * Array of objects representing the items in playground {@Link SideBar}.
- * Each object must have:
- * - 'src': pointing to the address of the item image,
- * - 'alt': alternative of the item image but also the name of the item
+ * Properties other than the ones below can be added.
+ * @property {string} src pointing to the address of the item image,
+ * @property {string} alt alternative of the item image but also the name of the item
  */
 const SideBarItemData = [
     [

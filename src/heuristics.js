@@ -5,7 +5,19 @@ import h4 from "./images/h4.PNG";
 import h5 from "./images/h5.PNG";
 
 /**
- * Data of the heuristic choice elements
+ * Data of the heuristics. 
+ * 
+ * Used in user story uploading page to draw and show the available heuristics
+ * and also in the heuristic switching modal of the playground page.
+ * 
+ * New heuristics can easily be implemented in the frontend side through this array.
+ * Simply add a new object to the HeuristicsData array.
+ * @property {string} alt alternative text to display if the image in not available
+ * @property {string} value value of the heuristic ("h1", "h2", "h3"). Each value should be unique
+ * @property {string} text text to define the heuristic. Shown below the image in user story loading page and
+ *           also in the heuristic switching button in playground
+ * @property {*} src image source
+ * @property {height:number} imageShape shape to be used in the user story uploading page
  * This data is used for creating heuristic choice elements {@Link ReactUSUpload}
  */
 export const HeuristicsData = [

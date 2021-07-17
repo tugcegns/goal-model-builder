@@ -98,18 +98,167 @@
 
         
             
-<h4 class="name" id="HeuristicChoiceData"><span class="type-signature">(constant) </span>HeuristicChoiceData<span class="type-signature"></span></h4>
+<h4 class="name" id="HeuristicsData"><span class="type-signature">(constant) </span>HeuristicsData<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Data of the heuristic choice elements
-This data is used for creating heuristic choice elements in <a href="ReactUSUpload.html"><code>ReactUSUpload</code></a></p>
+    <p>Data of the heuristics.</p>
+<p>Used in user story uploading page to draw and show the available heuristics
+and also in the heuristic switching modal of the playground page.</p>
+<p>New heuristics can easily be implemented in the frontend side through this array.
+Simply add a new object to the HeuristicsData array.</p>
 </div>
 
 
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>alt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>alternative text to display if the image in not available</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>value of the heuristic (&quot;h1&quot;, &quot;h2&quot;, &quot;h3&quot;). Each value should be unique</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>text to define the heuristic. Shown below the image in user story loading page and
+also in the heuristic switching button in playground</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>src</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>image source</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>imageShape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">height:number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>shape to be used in the user story uploading page
+This data is used for creating heuristic choice elements <a href="ReactUSUpload.html"><code>ReactUSUpload</code></a></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -143,7 +292,7 @@ This data is used for creating heuristic choice elements in <a href="ReactUSUplo
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="uploadUS.js.html">uploadUS.js</a>, <a href="uploadUS.js.html#line259">line 259</a>
+        <a href="heuristics.js.html">heuristics.js</a>, <a href="heuristics.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -292,15 +441,86 @@ This data is used for creating heuristic choice elements in <a href="ReactUSUplo
 
 <div class="description">
     <p>Array of objects representing the items in playground <a href="SideBar.html"><code>SideBar</code></a>.
-Each object must have:</p>
-<ul>
-<li>'src': pointing to the address of the item image,</li>
-<li>'alt': alternative of the item image but also the name of the item</li>
-</ul>
+Properties other than the ones below can be added.</p>
 </div>
 
 
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>src</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>pointing to the address of the item image,</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>alternative of the item image but also the name of the item</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -368,13 +588,13 @@ Each object must have:</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="Playground.html">Playground</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#PAPER_HEIGHT">PAPER_HEIGHT</a></li><li><a href="global.html#PAPER_WIDTH">PAPER_WIDTH</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="Playground.html">Playground</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicsData">HeuristicsData</a></li><li><a href="global.html#PAPER_HEIGHT">PAPER_HEIGHT</a></li><li><a href="global.html#PAPER_WIDTH">PAPER_WIDTH</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 16:42:22 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 17:49:46 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>
