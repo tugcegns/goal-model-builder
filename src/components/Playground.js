@@ -704,7 +704,7 @@ class Playground extends React.Component{
 
   /**
    * Determine the font size of the role label font.
-   * To keep the sizes of the role circle similar, long labels are
+   * To keep the sizes of the role circles similar, long labels are
    * drawn with smaller font sizes 
    * @param {string} label role label to calculate size for
    * @returns font size
@@ -724,7 +724,7 @@ class Playground extends React.Component{
   /**
    * Gets the currently selected element and updates its label.
    * The new label is processed with the {@link processLabel} method.
-   * If the label is being assigned to a goal, then the size of the font
+   * If the label is being assigned to a role, then the size of the font
    * is updated with the result of the {@link getRoleLabelFontSize} method.
    * @param {string} newLabel new label to assign to the selected element
    */
