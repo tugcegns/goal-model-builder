@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import FormModal from './FormModel';
 
+/**
+ * Modal for importing data in JSON format
+ */
 class ImportDataModal extends React.Component{
     constructor(props) {
         super(props);

@@ -6,6 +6,7 @@ import h1 from "./images/h1.PNG";
 import h2 from "./images/h2.PNG";
 import h3 from "./images/h3.PNG";
 
+
 class Capital extends React.Component{
     render(){
         return(
@@ -16,6 +17,9 @@ class Capital extends React.Component{
     }
 }
 
+/**
+ * Home page of the application
+ */
 class Home extends React.Component{
     render(){
         return(

@@ -1,4 +1,32 @@
-/* eslint-disable */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: uploadUS.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: uploadUS.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable */
 import React, { Component, useCallback } from "react";
 import { useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom'; 
@@ -94,7 +122,7 @@ class ReactUSUpload extends React.Component {
   }
  
   render() {
-    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => <HeuristicChoice 
+    const HeuristicChoiceComponents = HeuristicChoiceData.map(item => &lt;HeuristicChoice 
       key = {item.alt}
       {...item}
       selectedValue={this.state.value}
@@ -103,97 +131,97 @@ class ReactUSUpload extends React.Component {
     
     const { fileInputLabel } = this.state;
     return (
-      <div>
-        <NavigationBar page="home"/>
-        <form align="center">
-        <Container className="mt-5">
-          <Row>
-            <Col md="12">
-                <h2 className="text-center">Upload your user story set in .txt format</h2>
-                <hr/>
-                <p>There must be a single sentence in each line.</p>
-                <p>
+      &lt;div>
+        &lt;NavigationBar page="home"/>
+        &lt;form align="center">
+        &lt;Container className="mt-5">
+          &lt;Row>
+            &lt;Col md="12">
+                &lt;h2 className="text-center">Upload your user story set in .txt format&lt;/h2>
+                &lt;hr/>
+                &lt;p>There must be a single sentence in each line.&lt;/p>
+                &lt;p>
                 Expected sentence format:{" "}
-                    <q>
-                        As a <strong>role</strong>, I want <strong>action</strong> so that{" "}
-                        <strong>benefit</strong>.
-                    </q> 
-                </p>
-            </Col>
-          </Row>
-          <p align="center">
-          <Form style={{width:"50%", margin:'auto'}}>
-            <Form.File id="formcheck-api-custom" custom>
-              <Form.File.Input accept=".txt" ref={this.fileInput} 
+                    &lt;q>
+                        As a &lt;strong>role&lt;/strong>, I want &lt;strong>action&lt;/strong> so that{" "}
+                        &lt;strong>benefit&lt;/strong>.
+                    &lt;/q> 
+                &lt;/p>
+            &lt;/Col>
+          &lt;/Row>
+          &lt;p align="center">
+          &lt;Form style={{width:"50%", margin:'auto'}}>
+            &lt;Form.File id="formcheck-api-custom" custom>
+              &lt;Form.File.Input accept=".txt" ref={this.fileInput} 
                   onChange={this.onChange} />
-              <Form.File.Label data-browse=". . .">
+              &lt;Form.File.Label data-browse=". . .">
                 { fileInputLabel } 
-              </Form.File.Label>
-              <Form.Control.Feedback type="valid">If you submit it, your model will be updated!</Form.Control.Feedback>
-              <Form.Control.Feedback type="invalid"> {this.props.parseErrorMessage} </Form.Control.Feedback>
-            </Form.File>
-          </Form> 
-          </p>
-        </Container>
+              &lt;/Form.File.Label>
+              &lt;Form.Control.Feedback type="valid">If you submit it, your model will be updated!&lt;/Form.Control.Feedback>
+              &lt;Form.Control.Feedback type="invalid"> {this.props.parseErrorMessage} &lt;/Form.Control.Feedback>
+            &lt;/Form.File>
+          &lt;/Form> 
+          &lt;/p>
+        &lt;/Container>
 
-        <p align="center">
+        &lt;p align="center">
           Select a model type to generate your customized goal model.
-        </p>
+        &lt;/p>
 
-        <p align="center">Select a heuristic type.</p>
-        <Container className="mt-5">
-          <Row>
-            <Col md="6">
+        &lt;p align="center">Select a heuristic type.&lt;/p>
+        &lt;Container className="mt-5">
+          &lt;Row>
+            &lt;Col md="6">
               {HeuristicChoiceComponents[0]}
-            </Col>
-            <Col md="6">
+            &lt;/Col>
+            &lt;Col md="6">
               {HeuristicChoiceComponents[1]}
-            </Col>
-          </Row> 
-          <Row> 
-            <Col md="6">
+            &lt;/Col>
+          &lt;/Row> 
+          &lt;Row> 
+            &lt;Col md="6">
               {HeuristicChoiceComponents[2]}
-            </Col>
-            <Col md="6">
+            &lt;/Col>
+            &lt;Col md="6">
               {HeuristicChoiceComponents[3]}
-            </Col>            
-          </Row>
-          <Row>
-            <Col md="12">
+            &lt;/Col>            
+          &lt;/Row>
+          &lt;Row>
+            &lt;Col md="12">
               {HeuristicChoiceComponents[4]}
-            </Col>
-          </Row>
-        </Container>
-      </form>
-      <div align="center">
-        <CreateModelButton
+            &lt;/Col>
+          &lt;/Row>
+        &lt;/Container>
+      &lt;/form>
+      &lt;div align="center">
+        &lt;CreateModelButton
           pathname="/playground"
           goalModel={this.state.uploadedObject}
           attemptFormSubmit={this.attemptFormSubmit}
         />{' '}
-      </div>
-      <Modal
+      &lt;/div>
+      &lt;Modal
         show={this.state.showWarning}
         onHide={() => {this.setState({showWarning: false})}}
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+        &lt;Modal.Header closeButton>
+          &lt;Modal.Title id="contained-modal-title-vcenter">
             Unable to Create Model
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+          &lt;/Modal.Title>
+        &lt;/Modal.Header>
+        &lt;Modal.Body>
           {this.state.warningText}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={() => {
+        &lt;/Modal.Body>
+        &lt;Modal.Footer>
+          &lt;Button variant="danger" onClick={() => {
             this.setState({showWarning: false})
-          }}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+          }}>Close&lt;/Button>
+        &lt;/Modal.Footer>
+      &lt;/Modal>
+    &lt;/div>
   );
 }
 }
@@ -207,7 +235,7 @@ function CreateModelButton(props) {
   )
 
   return (
-    <Button as="input" type="submit" onClick={handleClick} value="Create Model" readOnly={true}/>
+    &lt;Button as="input" type="submit" onClick={handleClick} value="Create Model" readOnly={true}/>
   )
 }
 
@@ -218,13 +246,13 @@ function CreateModelButton(props) {
  */
 function HeuristicChoice(props) {
   return (
-    <div
+    &lt;div
       onClick={() => props.setValue(props.value)}
       style={{cursor: 'pointer'}}
     >
-      <img src={props.src} alt={props.alt} {...props.imageShape} />
-      <p>
-        <input
+      &lt;img src={props.src} alt={props.alt} {...props.imageShape} />
+      &lt;p>
+        &lt;input
           type="radio"
           name="heu"
           value={props.value}
@@ -232,14 +260,14 @@ function HeuristicChoice(props) {
           readOnly={true}
           style={{marginRight: "5px"}}
         />
-        <label
+        &lt;label
           className="label-style"
           style={{cursor: 'pointer'}}
         >
             {props.text}
-        </label>
-      </p>
-    </div>
+        &lt;/label>
+      &lt;/p>
+    &lt;/div>
   )
 }
 
@@ -290,4 +318,26 @@ const HeuristicChoiceData = [
   }
 ]
 
-export default withRouter(ReactUSUpload);
+export default withRouter(ReactUSUpload);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoice">HeuristicChoice</a></li><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:17:37 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

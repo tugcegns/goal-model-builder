@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Home.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Home.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavigationBar from "./components/NavigationBar";
+import { Row, Col, Container, Button } from "react-bootstrap";
+import h1 from "./images/h1.PNG";
+import h2 from "./images/h2.PNG";
+import h3 from "./images/h3.PNG";
+
+
+class Capital extends React.Component{
+    render(){
+        return(
+            &lt;span style={{ fontSize: 22, color: '#a93312' }}>
+                {this.props.children}
+            &lt;/span>
+        );
+    }
+}
+
+/**
+ * Home page of the application
+ */
+class Home extends React.Component{
+    render(){
+        return(
+            &lt;div>
+                &lt;NavigationBar page="home"/>
+                &lt;Container className="mt-5">
+                    &lt;Row>
+                        &lt;Col md="12">
+                            &lt;h2 className="text-center">Welcome to Goal Model Builder&lt;/h2>
+                            &lt;hr/>
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;img src="/img/US.png" width="100%" />
+                            &lt;p className="mt-4" >
+                                &lt;Button href="/first" variant="outline-danger">Load User Stories&lt;/Button>{' '}
+                            &lt;/p>
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;img src="/img/tool.png" width="100%" />
+                            &lt;p className="mt-4" >
+                                &lt;Button href="/playground" variant="outline-danger">Create an Empty Model&lt;/Button>{' '}
+                            &lt;/p>
+                        &lt;/Col>
+                        &lt;Col md="4">
+                        &lt;p style={{ marginBottom: '5px', color: '#a93312', fontSize: 22 }}> 
+                                &lt;b>You can; &lt;/b>
+                            &lt;/p>
+                            &lt;ul>
+                                &lt;li>
+                                    &lt;Capital>A&lt;/Capital>dd a new actor, boundary, goal or relationship between goals,
+                                &lt;/li>
+                                &lt;li>
+                                    &lt;Capital>R&lt;/Capital>ename the label of an actor or a goal with a double click,
+                                &lt;/li>
+                                &lt;li>
+                                    &lt;Capital>D&lt;/Capital>elete elements from the model,
+                                &lt;/li>
+                                &lt;li>
+                                    &lt;Capital>E&lt;/Capital>xport the model as PNG or JPEG to use in your paper or customer presentation,                                &lt;/li>
+                                &lt;li>
+                                    &lt;Capital>R&lt;/Capital>eposition elements(actors, boundaries, goals
+                                    and relationships).
+                                &lt;/li>
+                            &lt;/ul>
+                        &lt;/Col>
+                    &lt;/Row>  
+                    &lt;Row>
+                        &lt;Col md="4">
+                            &lt;p style={{ fontSize: 16, fontFamily: 'Verdana' }}>
+                            Upload a &lt;em>User Story&lt;/em> file to create a goal model 
+                            automatically with this goal model builder tool using different heuristics.
+                            &lt;/p>                          
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;p>
+                                Or start with a blank page to create your own goal models.
+                            &lt;/p>                       
+                        &lt;/Col>
+                    &lt;/Row>
+                    &lt;Row>
+                        &lt;Col md="4">
+                            &lt;h2>Heuristic 1: Grouping Action Verbs&lt;/h2>
+                            It searches for the common action verb in different user stories for the same role.
+                            Below example shows that they have common action which is &lt;em>view&lt;/em> for &lt;em>user&lt;/em>.
+                            The generated parent node is &lt;em>view operations conducted&lt;/em>.
+                            Child nodes consist of action object and passive voice of action verb.
+                            
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;h2>Heuristic 2: Grouping Action Objects&lt;/h2>
+                            It searches for the common action object in different user stories for the same role.
+                            Tiny goal model below shows that they have &lt;em>recycling center&lt;/em> as a common object.
+                            Intermediate parent node includes &lt;em>recycling center operations done&lt;/em>.
+                            Child nodes consists of action object and passive voice of action verb.               
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;h2>Heuristic 3: Getting Rid of Roles&lt;/h2>
+                            It builds a goal model without having any actor and actor boundaries.
+                            It checks action object to group the given user stories.
+                            Below example shows that &lt;em>data of the company&lt;/em> is common action object.
+                            Goal model has passive voice of action verb and role for child nodes.              
+                        &lt;/Col>
+                    &lt;/Row>
+                    &lt;Row>
+                        &lt;Col md="4">
+                            &lt;img src={h1} width="100%"/>
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;img src={h2} width="100%"/>
+                        &lt;/Col>
+                        &lt;Col md="4">
+                            &lt;img src={h3} width="100%"/>
+                        &lt;/Col>
+                    &lt;/Row>
+                &lt;/Container>
+            &lt;/div>
+        );
+    }
+}
+
+export default Home;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoice">HeuristicChoice</a></li><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:17:37 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

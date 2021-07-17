@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/SideBar.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/SideBar.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Tabs, Tab } from "react-bootstrap";
+
+import  htmlToImage from 'html-to-image';
+import  download  from 'downloadjs';
+import ImportDataModal from "./ImportDataModal";
+import SwitchHeuristicButton from "./SwitchHeuristicButton";
+import Chronometer from "./Chronometer"
+
+const boxStyle = {borderTop: '2px solid #a1a1a1', textAlign: 'center', padding: '8%'}
+
+/**
+ * Sidebar component of the Playground page
+ */
+class SideBar extends React.Component{
+
+    /**
+     * Downloads the current model in Jpeg format
+     */
+    handleJPEGExport = () => {
+        htmlToImage.toJpeg(document.getElementById('playground'), 
+        {   
+            quality: 0.95, 
+            backgroundColor: 'white', 
+            style: { padding: '30px' }
+        })
+        .then(function (dataUrl) {
+            var link = document.createElement('a');
+            link.download = 'goal-model.jpeg';
+            link.href = dataUrl;
+            link.click();
+        });
+    }
+    
+    /**
+     * Downloads the current model in Png format
+     */
+    handlePNGExport = () => {
+        htmlToImage.toPng(document.getElementById('playground'))
+        .then(function (dataUrl) {
+              download(dataUrl, 'goal-model.png');
+        });
+    }
+
+    render(){ 
+        const { selectedTool } = this.props;
+        const selectedBorder = {border: '3px dashed #555555', padding: '5px', cursor: 'pointer'}
+        
+        const SideBarBoxDivs = SideBarItemData.map(boxData => {
+            const boxItems = boxData.map(item => &lt;img
+                    {...item}
+                    style={ selectedTool === item.alt ? {...selectedBorder, ...item.style} : { cursor: 'pointer', ...item.style}}
+                    onClick={(e) => this.props.handleToolClick(item.alt)}
+                    />)
+            return (
+                &lt;div style={boxStyle}>
+                    &lt;p className="text-center" style={{ fontSize: '22px', margin:'0px' }}>
+                        {boxItems}
+                    &lt;/p>
+                &lt;/div>
+            )
+        })
+
+        const { getGraphScale, setGraphScale, selectedHeuristic } = this.props
+        return(
+            &lt;div style={{
+                width: '100%',
+                backgroundColor: '#e1e1e1',
+                paddingTop: '20px',
+                height: '100%',
+                boxShadow: '4px 2px 5px 0px #a1a1a1',
+                position:'relative',
+                overflowY: 'auto',
+            }}>
+                &lt;Tabs defaultActiveKey="toolbox" id="uncontrolled-tab-exam">
+                    &lt;Tab eventKey="toolbox" title="Toolbox">
+                        {SideBarBoxDivs}
+                    &lt;/Tab>
+                    &lt;Tab eventKey="data" title="Data">
+                        
+                        &lt;div style={boxStyle}>
+                            &lt;ImportDataModal setUploadedObject={this.props.setUploadedObject} /> 
+                        &lt;/div>
+                        &lt;div style={boxStyle}>
+                            Export as&lt;br>&lt;/br>
+                            &lt;Button variant="info" style={{marginLeft: "2px"}} onClick={this.handlePNGExport}>PNG &lt;/Button>
+                            &lt;Button variant="info" style={{marginLeft: "2px"}} onClick={this.handleJPEGExport}>JPEG &lt;/Button>
+                            &lt;Button variant="info" style={{marginLeft: "2px"}} onClick={(e) => this.props.handleJSONExport(true)}>JSON &lt;/Button>
+                        &lt;/div>
+                        {selectedHeuristic==="Hello" || &lt;div style={boxStyle}>&lt;SwitchHeuristicButton selectedHeuristic={selectedHeuristic} handleHeuristicClick={this.props.handleHeuristicClick}/>&lt;/div>}
+                    &lt;/Tab>
+                &lt;/Tabs>
+                &lt;div style={boxStyle}>
+                    Zoom
+                    &lt;Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() + 0.1)}>In&lt;/Button>
+                    &lt;Button variant="info" style={{marginLeft: "2px"}} onClick={() => setGraphScale(getGraphScale() - 0.1)}>Out&lt;/Button>
+                &lt;/div>
+
+                &lt;div style={{height:'15%', position:'absolute', bottom:0, width: '100%'}}>
+                    &lt;div style={boxStyle}>
+                        &lt;Chronometer/>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        );
+    }
+}
+
+/**
+ * Array of objects representing the items in playground sidebar.
+ * Each object must have:
+ * - 'src': pointing to the address of the item image,
+ * - 'alt': alternative of the item image but also the name of the item
+ * 
+ */
+const SideBarItemData = [
+    [
+        {
+            src: "/img/boundary.png", 
+            width: "64",
+            height: "64",
+            alt:"boundary"
+        },
+    ],
+    [
+        {
+            src: "/img/role.png",
+            width: "64",
+            height: "64", 
+            alt: "role"
+        }
+    ],
+    [
+        {
+            src: "/img/goal.png",
+            height: "64",
+            alt: "goal"
+        }
+    ],
+    [
+        {
+            src: "/img/and.png",
+            height: "64",
+            alt: "and",
+            style: {marginRight: '15%'}
+        },
+        {
+            src: "/img/or.png",
+            height: "64",
+            alt: "or"
+        }
+    ]
+]
+
+export default SideBar;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Home.html">Home</a></li><li><a href="ImportDataModal.html">ImportDataModal</a></li><li><a href="MainPage.html">MainPage</a></li><li><a href="NavigationBar.html">NavigationBar</a></li><li><a href="ReactUSUpload.html">ReactUSUpload</a></li><li><a href="SideBar.html">SideBar</a></li><li><a href="SwitchHeuristicButton.html">SwitchHeuristicButton</a></li></ul><h3>Global</h3><ul><li><a href="global.html#HeuristicChoice">HeuristicChoice</a></li><li><a href="global.html#HeuristicChoiceData">HeuristicChoiceData</a></li><li><a href="global.html#SideBarItemData">SideBarItemData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 17 2021 12:17:37 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

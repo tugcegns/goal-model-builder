@@ -11,8 +11,14 @@ import Chronometer from "./Chronometer"
 
 const boxStyle = {borderTop: '2px solid #a1a1a1', textAlign: 'center', padding: '8%'}
 
+/**
+ * Sidebar component of the Playground page
+ */
 class SideBar extends React.Component{
 
+    /**
+     * Downloads the current model in Jpeg format
+     */
     handleJPEGExport = () => {
         htmlToImage.toJpeg(document.getElementById('playground'), 
         {   
@@ -27,6 +33,10 @@ class SideBar extends React.Component{
             link.click();
         });
     }
+    
+    /**
+     * Downloads the current model in Png format
+     */
     handlePNGExport = () => {
         htmlToImage.toPng(document.getElementById('playground'))
         .then(function (dataUrl) {
@@ -98,6 +108,13 @@ class SideBar extends React.Component{
     }
 }
 
+/**
+ * Array of objects representing the items in playground sidebar.
+ * Each object must have:
+ * - 'src': pointing to the address of the item image,
+ * - 'alt': alternative of the item image but also the name of the item
+ * 
+ */
 const SideBarItemData = [
     [
         {
