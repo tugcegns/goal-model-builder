@@ -29,6 +29,15 @@ class MainPage extends React.Component{
             selectedHeuristic: "No",
             graphScale: 1
         }
+        this.fileUpload = this.fileUpload.bind(this)
+        this.handleHeuristicClick = this.handleHeuristicClick.bind(this)
+        this.handleToolClick = this.handleToolClick.bind(this)
+        this.setUploadedObject = this.setUploadedObject.bind(this)
+        this.setGraphScale = this.setGraphScale.bind(this)
+        this.getGraphScale = this.getGraphScale.bind(this)
+        this.handleJSONExport = this.handleJSONExport.bind(this)
+        this.download = this.download.bind(this)
+        this.exportJSON = this.exportJSON.bind(this)
     }
 
     /**
@@ -36,7 +45,7 @@ class MainPage extends React.Component{
    * @param {string} heuristic ID of the new heuristic
    * @returns response from the backend
      */
-    fileUpload = (heuristic, e) => {
+    fileUpload(heuristic, e){
         const url = "http://localhost:5000/upload";
         const formData = new FormData();
         formData.append("file", this.state.file);
@@ -54,7 +63,7 @@ class MainPage extends React.Component{
      * sets the data contained in the response as the new model, which will be drawn immedietly
      * @param {string} heuristic ID of the new heuristic
      */
-    handleHeuristicClick = (heuristic) => 
+    handleHeuristicClick(heuristic) 
     {
         this.fileUpload(heuristic).then((response) => {
             if (response) {
@@ -81,7 +90,7 @@ class MainPage extends React.Component{
      * Updates the selected tool
      * @param {string} type Type of the selected tool
      */
-    handleToolClick = type => {
+    handleToolClick(type){
         this.setState({ selectedTool: type });
     }
 
@@ -89,7 +98,7 @@ class MainPage extends React.Component{
      * Sets the new data as the model
      * @param {*} uploadedObject data of the new model to draw
      */
-    setUploadedObject = uploadedObject => {
+    setUploadedObject(uploadedObject){
         this.setState({ uploadedObject });
     }
 
@@ -97,7 +106,7 @@ class MainPage extends React.Component{
      * Sets the scale of the graph. Used to implement zoom in/out
      * @param {float} newScale New graph scale 
      */
-    setGraphScale = (newScale) => {
+    setGraphScale(newScale){
         this.setState({ graphScale: newScale });
     }
 
@@ -105,7 +114,7 @@ class MainPage extends React.Component{
      * Gets the current graph scale. Used to implement zoom in/out 
      * @returns Current graph scale
      */
-    getGraphScale = () => {
+    getGraphScale(){
         return this.state.graphScale
     }
 
@@ -113,11 +122,11 @@ class MainPage extends React.Component{
      * Downloads the JSON data representing the current model
      * @param {boolean} flag whether the export JSON button is clicked 
      */
-    handleJSONExport = flag => {
+    handleJSONExport(flag) {
         this.setState({ jsonExportClicked: flag })
     }
 
-    download = (filename, text) => {
+    download(filename, text) {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(text));
         element.setAttribute('download', filename);
@@ -135,7 +144,7 @@ class MainPage extends React.Component{
      * This JSON file can be used to import the model back.
      * @param {*} graphObject
      */
-    exportJSON = graphObject => {
+    exportJSON(graphObject){
         this.download("goal-model.json", JSON.stringify(graphObject));
     }
 
